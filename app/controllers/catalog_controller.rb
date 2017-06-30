@@ -4,8 +4,8 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Blacklight::Marc::Catalog
 
-  #https://github.com/projectblacklight/blacklight/wiki/Adding-new-document-actions
-  add_show_tools_partial :viewer
+  #ERJ https://github.com/projectblacklight/blacklight/wiki/Adding-new-document-actions
+
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
