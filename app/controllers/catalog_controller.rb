@@ -40,8 +40,8 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
-    config.index.title_field = 'title_display'
-    config.index.display_type_field = 'format'
+    config.index.title_field = 'label_s'
+    config.index.display_type_field = 'location_s'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
     # solr field configuration for document/show views
@@ -73,22 +73,13 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'format', label: 'Format'
-    config.add_facet_field 'pub_date', label: 'Publication Year', single: true
-    config.add_facet_field 'subject_topic_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
-    config.add_facet_field 'language_facet', label: 'Language', limit: true
-    config.add_facet_field 'lc_1letter_facet', label: 'Call Number'
-    config.add_facet_field 'subject_geo_facet', label: 'Region'
-    config.add_facet_field 'subject_era_facet', label: 'Era'
-
-    config.add_facet_field 'example_pivot_field', label: 'Pivot Field', :pivot => ['format', 'language_facet']
-
-    config.add_facet_field 'example_query_facet_field', label: 'Publish Date', :query => {
-       :years_5 => { label: 'within 5 Years', fq: "pub_date:[#{Time.zone.now.year - 5 } TO *]" },
-       :years_10 => { label: 'within 10 Years', fq: "pub_date:[#{Time.zone.now.year - 10 } TO *]" },
-       :years_25 => { label: 'within 25 Years', fq: "pub_date:[#{Time.zone.now.year - 25 } TO *]" }
-    }
-
+    config.add_facet_field 'book_s', label: 'Notebook'
+    config.add_facet_field 'location_s', label: 'Location'
+    config.add_facet_field 'author_s', label: 'Notetaker'
+    config.add_facet_field 'subject_s', label: 'Subject'
+    config.add_facet_field 'scan_author_s', label: 'Author'
+    config.add_facet_field 'scan_part_of_s', label: 'Container'
+    config.add_facet_field 'scan_location_s', label: 'Category'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -97,32 +88,30 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'title_display', label: 'Title'
-    config.add_index_field 'title_vern_display', label: 'Title'
-    config.add_index_field 'author_display', label: 'Author'
-    config.add_index_field 'author_vern_display', label: 'Author'
-    config.add_index_field 'format', label: 'Format'
-    config.add_index_field 'language_facet', label: 'Language'
-    config.add_index_field 'published_display', label: 'Published'
-    config.add_index_field 'published_vern_display', label: 'Published'
-    config.add_index_field 'lc_callnum_display', label: 'Call number'
+    config.add_index_field 'label_s', label: 'Label'
+    config.add_index_field 'location_s', label: 'Location'
+    config.add_index_field 'scan_title_s', label: 'Scan Title'
+    config.add_index_field 'entries_t', label: 'Description'
+
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'title_display', label: 'Title'
-    config.add_show_field 'title_vern_display', label: 'Title'
-    config.add_show_field 'subtitle_display', label: 'Subtitle'
-    config.add_show_field 'subtitle_vern_display', label: 'Subtitle'
+    config.add_show_field 'id', label: 'ID'
+    config.add_show_field 'label_s', label: 'Label'
+    config.add_show_field 'location_s', label: 'Location'
+    config.add_show_field 'author_s', label: 'Author'
     config.add_show_field 'author_display', label: 'Author'
-    config.add_show_field 'author_vern_display', label: 'Author'
-    config.add_show_field 'format', label: 'Format'
-    config.add_show_field 'url_fulltext_display', label: 'URL'
-    config.add_show_field 'url_suppl_display', label: 'More Information'
-    config.add_show_field 'language_facet', label: 'Language'
-    config.add_show_field 'published_display', label: 'Published'
-    config.add_show_field 'published_vern_display', label: 'Published'
-    config.add_show_field 'lc_callnum_display', label: 'Call number'
-    config.add_show_field 'isbn_t', label: 'ISBN'
+    config.add_show_field 'scan_s', label: 'Scan ID'
+    config.add_show_field 'entries_t', label: 'Description'
+    config.add_show_field 'scan_title_s', label: 'Scan Title'
+    config.add_show_field 'scan_subject_s', label: 'Scan Subject'
+    config.add_show_field 'scan_author_s', label: 'Scan Author'
+    config.add_show_field 'scan_part_of_s', label: 'Container'
+    config.add_show_field 'scan_location_s', label: 'Category'
+    config.add_show_field 'scan_recto_s', label: 'Recto'
+    config.add_show_field 'scan_verso_s', label: 'Recto'
+    config.add_show_field 'scan_photo_s', label: 'Recto'
+    config.add_show_field 'scan_institutional_stamp_s', label: 'Stamp'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
