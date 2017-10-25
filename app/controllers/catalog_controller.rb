@@ -19,7 +19,8 @@ class CatalogController < ApplicationController
 
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
-      rows: 10
+      rows: 10,
+      fl: '*'
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -40,12 +41,14 @@ class CatalogController < ApplicationController
     #}
 
     # solr field configuration for search results/index views
+    #https://github.com/projectblacklight/blacklight/wiki/Configuration---Results-View
     config.index.title_field = 'label_s'
-    config.index.display_type_field = 'location_s'
+    #config.index.display_type_field = 'location_s'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
     # solr field configuration for document/show views
     #config.show.title_field = 'title_display'
+    #config.show.title_field = 'label_s'
     #config.show.display_type_field = 'format'
     #config.show.thumbnail_field = 'thumbnail_path_ss'
 
@@ -100,7 +103,6 @@ class CatalogController < ApplicationController
     config.add_show_field 'label_s', label: 'Label'
     config.add_show_field 'location_s', label: 'Location'
     config.add_show_field 'author_s', label: 'Author'
-    config.add_show_field 'author_display', label: 'Author'
     config.add_show_field 'scan_s', label: 'Scan ID'
     config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
     config.add_show_field 'scan_title_s', label: 'Scan Title'
