@@ -91,7 +91,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'label_s', label: 'Label'
     config.add_index_field 'location_s', label: 'Location'
     config.add_index_field 'scan_title_s', label: 'Scan Title'
-    config.add_index_field 'entries_t', label: 'Description'
+    config.add_index_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
 
 
     # solr fields to be displayed in the show (single result) view
@@ -102,7 +102,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'author_s', label: 'Author'
     config.add_show_field 'author_display', label: 'Author'
     config.add_show_field 'scan_s', label: 'Scan ID'
-    config.add_show_field 'entries_t', label: 'Description'
+    config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
     config.add_show_field 'scan_title_s', label: 'Scan Title'
     config.add_show_field 'scan_subject_s', label: 'Scan Subject'
     config.add_show_field 'scan_author_s', label: 'Scan Author'
