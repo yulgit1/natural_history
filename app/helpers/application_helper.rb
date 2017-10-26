@@ -1,22 +1,22 @@
 module ApplicationHelper
 
+  def make_html_safe options={}
+    fa = []
+    options[:value].each {  |f|
+      fa.append(f)
+    }
+    #options[:value][0].html_safe
+    fa.join('<br/>').html_safe
+  end
+
   def render_markdown options={}
     #markdown(options[:value][0])
-    a = Array.new
-    options[:value].each { |s| a.push(markdown(s)) }
-    if a.length == 1
-      a[1] = ""
-      a[2] = ""
-      a[3] = ""
-    end
-    if a.length == 2
-      a[2] = ""
-      a[3] = ""
-    end
-    if a.length == 3
-      a[3] = ""
-    end
-    a[0] + a[1] + a[2] + a[3]
+    fa = []
+    options[:value].each {  |f|
+      fa.append(markdown(f))
+    }
+    #options[:value][0].html_safe
+    fa.join('<br/>').html_safe
   end
 
   def markdown(text)

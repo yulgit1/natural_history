@@ -77,7 +77,7 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'has_scan_s', label: 'Scan Available'
-    config.add_facet_field 'scan_s', label: 'Scan Facet'
+    config.add_facet_field 'scan_s', label: 'Scan Facet', :limit => 100
     config.add_facet_field 'book_s', label: 'Notebook'
     config.add_facet_field 'location_s', label: 'Location'
     config.add_facet_field 'author_s', label: 'Notetaker'
@@ -112,10 +112,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'scan_author_s', label: 'Scan Author'
     config.add_show_field 'scan_part_of_s', label: 'Container'
     config.add_show_field 'scan_location_s', label: 'Category'
-    config.add_show_field 'scan_recto_s', label: 'Recto'
-    config.add_show_field 'scan_verso_s', label: 'Recto'
-    config.add_show_field 'scan_photo_s', label: 'Recto'
-    config.add_show_field 'scan_institutional_stamp_s', label: 'Stamp'
+    config.add_show_field 'scan_recto_s', label: 'Recto', helper_method: 'make_html_safe'
+    config.add_show_field 'scan_verso_s', label: 'Verso', helper_method: 'make_html_safe'
+    config.add_show_field 'scan_photo_s', label: 'Photo', helper_method: 'make_html_safe'
+    config.add_show_field 'scan_institutional_stamp_s', label: 'Stamp', helper_method: 'make_html_safe'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
