@@ -76,12 +76,14 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'has_scan_s', label: 'Scan Available'
+    config.add_facet_field 'object_type_s', label: 'Type'
+    config.add_facet_field 'has_scan_s', label: 'Scan Available (Objects)'
     config.add_facet_field 'scan_s', label: 'Scan Facet', :limit => 100
     config.add_facet_field 'book_s', label: 'Notebook'
     config.add_facet_field 'location_s', label: 'Location'
     config.add_facet_field 'author_s', label: 'Notetaker'
     config.add_facet_field 'subject_s', label: 'Subject'
+    config.add_facet_field 'gnrd_sm', label: 'Scientific Name', :limit => 50
     config.add_facet_field 'scan_author_s', label: 'Author'
     config.add_facet_field 'scan_part_of_s', label: 'Container'
     config.add_facet_field 'scan_location_s', label: 'Category'
@@ -94,17 +96,19 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'label_s', label: 'Label'
+    config.add_index_field 'title_display', label: 'Title'
     config.add_index_field 'location_s', label: 'Location'
-    config.add_index_field 'scan_title_s', label: 'Scan Title'
+
     #config.add_index_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
 
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     config.add_show_field 'id', label: 'ID'
+    config.add_show_field 'title_display', label: 'Title'
     config.add_show_field 'label_s', label: 'Label'
     config.add_show_field 'location_s', label: 'Location'
-    config.add_show_field 'author_s', label: 'Author'
+    config.add_show_field 'author_display', label: 'Author'
     config.add_show_field 'scan_sm', label: 'Scan ID'
     config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
     config.add_show_field 'scan_title_sm', label: 'Scan Title'
