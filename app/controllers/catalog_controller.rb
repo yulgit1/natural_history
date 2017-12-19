@@ -96,7 +96,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'label_s', label: 'Label'
     config.add_index_field 'location_s', label: 'Location'
     config.add_index_field 'scan_title_s', label: 'Scan Title'
-    config.add_index_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
+    #config.add_index_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
 
 
     # solr fields to be displayed in the show (single result) view
@@ -105,17 +105,17 @@ class CatalogController < ApplicationController
     config.add_show_field 'label_s', label: 'Label'
     config.add_show_field 'location_s', label: 'Location'
     config.add_show_field 'author_s', label: 'Author'
-    config.add_show_field 'scan_s', label: 'Scan ID'
+    config.add_show_field 'scan_sm', label: 'Scan ID'
     config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
-    config.add_show_field 'scan_title_s', label: 'Scan Title'
-    config.add_show_field 'scan_subject_s', label: 'Scan Subject'
-    config.add_show_field 'scan_author_s', label: 'Scan Author'
-    config.add_show_field 'scan_part_of_s', label: 'Container'
-    config.add_show_field 'scan_location_s', label: 'Category'
-    config.add_show_field 'scan_recto_s', label: 'Recto', helper_method: 'make_html_safe'
-    config.add_show_field 'scan_verso_s', label: 'Verso', helper_method: 'make_html_safe'
-    config.add_show_field 'scan_photo_s', label: 'Photo', helper_method: 'make_html_safe'
-    config.add_show_field 'scan_institutional_stamp_s', label: 'Stamp', helper_method: 'make_html_safe'
+    config.add_show_field 'scan_title_sm', label: 'Scan Title'
+    config.add_show_field 'scan_subject_sm', label: 'Scan Subject'
+    config.add_show_field 'scan_author_sm', label: 'Scan Author'
+    config.add_show_field 'scan_part_of_sm', label: 'Container'
+    config.add_show_field 'scan_location_sm', label: 'Category'
+    config.add_show_field 'scan_recto_sm', label: 'Recto', helper_method: 'make_html_safe'
+    config.add_show_field 'scan_verso_sm', label: 'Verso', helper_method: 'make_html_safe'
+    config.add_show_field 'scan_photo_sm', label: 'Photo', helper_method: 'make_html_safe'
+    config.add_show_field 'scan_institutional_stamp_sm', label: 'Stamp', helper_method: 'make_html_safe'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

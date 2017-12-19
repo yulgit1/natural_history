@@ -24,5 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
+  mount Riiif::Engine => '/image-service', as: 'riiif'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
