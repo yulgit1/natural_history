@@ -1,5 +1,18 @@
 module ApplicationHelper
 
+  def render_as_link options={}
+    options[:document] # the original document
+    options[:field] # the field to render
+    options[:value] # the value of the field
+
+    links = []
+    options[:value].each {  |link|
+      links.append(link_to "#{link}", "#{link}", target: '_blank')
+    }
+
+    links.join('<br/>').html_safe
+  end
+
   def make_html_safe options={}
     fa = []
     options[:value].each {  |f|

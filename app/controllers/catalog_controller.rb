@@ -5,6 +5,13 @@ class CatalogController < ApplicationController
   include Blacklight::Marc::Catalog
 
   #ERJ https://github.com/projectblacklight/blacklight/wiki/Adding-new-document-actions
+  #, if: :display_scan_metadata?
+
+  def is_scan?(field_config,doc)
+    return true if doc[:format] == "scan"
+    return false if doc[:format] == "object"
+  end
+
 
 
   configure_blacklight do |config|
@@ -83,6 +90,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'location_s', label: 'Location'
     config.add_facet_field 'author_s', label: 'Notetaker'
     config.add_facet_field 'subject_s', label: 'Subject'
+    config.add_facet_field 'subject_topic_facet', label: 'Scan Subject', :limit => 100
+    config.add_facet_field 'author_t', label: 'Scan Author', :limit => 100
     config.add_facet_field 'gnrd_sm', label: 'Scientific Name', :limit => 50
     config.add_facet_field 'scan_author_s', label: 'Author'
     config.add_facet_field 'scan_part_of_s', label: 'Container'
@@ -98,6 +107,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'label_s', label: 'Label'
     config.add_index_field 'title_display', label: 'Title'
     config.add_index_field 'location_s', label: 'Location'
+    config.add_index_field 'author_display', label: 'Author'
 
     #config.add_index_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
 
@@ -107,19 +117,17 @@ class CatalogController < ApplicationController
     config.add_show_field 'id', label: 'ID'
     config.add_show_field 'title_display', label: 'Title'
     config.add_show_field 'label_s', label: 'Label'
-    config.add_show_field 'location_s', label: 'Location'
-    config.add_show_field 'author_display', label: 'Author'
-    config.add_show_field 'scan_sm', label: 'Scan ID'
+    config.add_show_field 'location_s', label: 'Location', link_to_search: true
+    config.add_show_field 'author_display', label: 'Author', link_to_search: true
+    config.add_show_field 'scan_sm', label: 'Scan ID', helper_method: 'render_as_link'
+    config.add_show_field 'gnrd_sm', link_to_search: true, label: 'Scientific Name'
     config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
-    config.add_show_field 'scan_title_sm', label: 'Scan Title'
-    config.add_show_field 'scan_subject_sm', label: 'Scan Subject'
-    config.add_show_field 'scan_author_sm', label: 'Scan Author'
-    config.add_show_field 'scan_part_of_sm', label: 'Container'
-    config.add_show_field 'scan_location_sm', label: 'Category'
-    config.add_show_field 'scan_recto_sm', label: 'Recto', helper_method: 'make_html_safe'
-    config.add_show_field 'scan_verso_sm', label: 'Verso', helper_method: 'make_html_safe'
-    config.add_show_field 'scan_photo_sm', label: 'Photo', helper_method: 'make_html_safe'
-    config.add_show_field 'scan_institutional_stamp_sm', label: 'Stamp', helper_method: 'make_html_safe'
+    config.add_show_field 'subject_topic_s', label: 'Scan Subject', link_to_search: true, if: :is_scan?
+    config.add_show_field 'part_of_s', label: 'Container', link_to_search: true, if: :is_scan?
+    config.add_show_field 'recto_s', label: 'Recto', helper_method: 'make_html_safe', if: :is_scan?
+    config.add_show_field 'verso_s', label: 'Verso', helper_method: 'make_html_safe', if: :is_scan?
+    config.add_show_field 'photo_s', label: 'Photo', helper_method: 'make_html_safe', if: :is_scan?
+    config.add_show_field 'institutional_stamp_s', label: 'Stamp', helper_method: 'make_html_safe'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
