@@ -128,6 +128,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'verso_s', label: 'Verso', helper_method: 'make_html_safe', if: :is_scan?
     config.add_show_field 'photo_s', label: 'Photo', helper_method: 'make_html_safe', if: :is_scan?
     config.add_show_field 'institutional_stamp_s', label: 'Stamp', helper_method: 'make_html_safe'
+    config.add_show_field 'object_type_s', label: 'Notebook Entry', helper_method: 'render_entries', if: :is_scan?
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
