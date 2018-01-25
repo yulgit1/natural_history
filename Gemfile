@@ -67,3 +67,5 @@ gem 'blacklight-marc', '~> 6.1'
 gem 'redcarpet'
 
 gem 'riiif'
+
+gem 'nokogiri', '~> 1.8.1'
