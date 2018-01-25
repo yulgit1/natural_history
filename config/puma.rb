@@ -14,6 +14,9 @@ port        ENV.fetch("PORT") { 3000 }
 # Specifies the `environment` that Puma will run in.
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
+daemonize
+pidfile '/home/ec2-user/puma/puma.pid'
+stdout_redirect '/home/ec2-user/puma/stdout', '//home/ec2-user/puma/stderr', true
 
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
