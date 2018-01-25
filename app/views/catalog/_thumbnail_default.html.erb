@@ -1,1 +1,1 @@
-<%= image_tag(document[:iiif_thumbnail_s]) unless document[:iiif_thumbnail_s].nil?  %>
+<%= image_tag(document[:iiif_thumbnail_s].gsub("localhost","10.5.96.214")) unless document[:iiif_thumbnail_s].nil?  %>
