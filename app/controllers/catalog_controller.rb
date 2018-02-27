@@ -83,7 +83,7 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'object_type_s', label: 'Type'
+    config.add_facet_field 'object_type_s', label: 'Type', :collapse => false
     config.add_facet_field 'subject_topic_facet', label: 'Subject (Scans)', :limit => 100
     config.add_facet_field 'author_display_facet', label: 'Author (Scans)', :limit => 100
     config.add_facet_field 'gnrd_sm', label: 'Scientific Name (Objects & Scans)', :limit => 50
