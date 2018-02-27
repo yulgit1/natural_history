@@ -84,15 +84,17 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'object_type_s', label: 'Type'
+    config.add_facet_field 'subject_topic_facet', label: 'Subject (Scans)', :limit => 100
+    config.add_facet_field 'author_display_facet', label: 'Author (Scans)', :limit => 100
+    config.add_facet_field 'gnrd_sm', label: 'Scientific Name (Objects & Scans)', :limit => 50
+    config.add_facet_field 'location_s', label: 'Location (Objects & Scans)', :limit => 100, helper_method: 'remove_ycba'
     config.add_facet_field 'has_scan_s', label: 'Scan Available (Objects)'
-    config.add_facet_field 'scan_s', label: 'Scan Facet', :limit => 100
-    config.add_facet_field 'book_s', label: 'Notebook', sort: 'index'
-    config.add_facet_field 'location_s', label: 'Location'
-    config.add_facet_field 'author_s', label: 'Notetaker'
-    config.add_facet_field 'subject_s', label: 'Subject'
-    config.add_facet_field 'subject_topic_facet', label: 'Scan Subject', :limit => 100
-    config.add_facet_field 'author_t', label: 'Scan Author', :limit => 100
-    config.add_facet_field 'gnrd_sm', label: 'Scientific Name', :limit => 50
+    config.add_facet_field 'subject_s', label: 'Notebook Header (Objects)', :limit => 100
+    #config.add_facet_field 'scan_s', label: 'Scan Facet', :limit => 100
+    config.add_facet_field 'book_s', label: 'Notebook (Objects)', sort: 'index'
+    config.add_facet_field 'author_s', label: 'Notetaker (Objects)'
+
+
     config.add_facet_field 'scan_author_s', label: 'Author'
     config.add_facet_field 'scan_part_of_s', label: 'Container'
     config.add_facet_field 'scan_location_s', label: 'Category'
@@ -119,7 +121,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'label_s', label: 'Label'
     config.add_show_field 'location_s', label: 'Location', link_to_search: true
     config.add_show_field 'author_display', label: 'Author', link_to_search: true
-    config.add_show_field 'scan_sm', label: 'Scan ID', helper_method: 'render_as_link'
+    config.add_show_field 'scan_sm', label: 'Related Scan', helper_method: 'render_scan_as_link'
     config.add_show_field 'gnrd_sm', link_to_search: true, label: 'Scientific Name'
     config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
     config.add_show_field 'subject_topic_s', label: 'Scan Subject', link_to_search: true, if: :is_scan?

@@ -1,5 +1,12 @@
 module ApplicationHelper
 
+  def remove_ycba value
+    if value == "Yale Center for British Art"
+      value = "Yale Center for British Art (objects)"
+    end
+    value
+  end
+
   def render_entries options={}
     obj_id = options[:document][:id]
     solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
@@ -28,6 +35,23 @@ module ApplicationHelper
 
     links.join('<br/>').html_safe
   end
+
+  def render_scan_as_link options={}
+    options[:document] # the original document
+    options[:field] # the field to render
+    options[:value] # the value of the field
+    solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
+    links = []
+    options[:value].each {  |link|
+      response = solr.get 'select', :params => {:fq => "id:#{link}"}
+      title = link
+      title = response["response"]["docs"][0]["title_display"] if response["response"]["docs"][0]["title_display"].nil? == false
+      links.append(link_to "#{title}", "#{link}", target: '_blank')
+    }
+
+    links.join('<br/>').html_safe
+  end
+
 
   def make_html_safe options={}
     fa = []
