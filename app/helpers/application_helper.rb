@@ -7,16 +7,17 @@ module ApplicationHelper
     value
   end
 
-  def render_entries options={}
+def render_entries options={}
     obj_id = options[:document][:id]
     solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
     query = "scan_sm:\"#{obj_id}\""
-    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 10, :fl => "entries_t" }
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 10, :fl => "entries_t, id, label_s" }
     entries = []
     if solr_response["response"] && solr_response["response"]["docs"].size > 0
-      solr_response["response"]["docs"].each { |doc|
-        if doc["entries_t"]
-          entries.append(doc["entries_t"])
+      solr_response["response"]["docs"].each_with_index { |doc, i|
+        if doc["entries_t"][0]
+          obj_link = "[#{doc["label_s"]}](#{doc["id"]})"
+          entries.append(obj_link + doc["entries_t"][0])
         end
       }
     end
