@@ -16,7 +16,7 @@ def render_entries options={}
     if solr_response["response"] && solr_response["response"]["docs"].size > 0
       solr_response["response"]["docs"].each_with_index { |doc, i|
         if doc["entries_t"][0]
-          obj_link = "[#{doc["label_s"]}](#{doc["id"]})"
+          obj_link = "\n[#{doc["label_s"]}](#{doc["id"]})"
           entries.append(obj_link + doc["entries_t"][0])
         end
       }
