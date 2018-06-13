@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :block_foreign_hosts
+  before_action :block_foreign_hosts, :authenticate_user!
 
   def block_foreign_hosts
     puts "Remote_ip:#{request.remote_ip}"
