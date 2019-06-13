@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     whitelisted = whitelisted?(request.remote_ip)
     puts "Whitelisted:#{whitelisted}"
     return false if whitelisted
-    redirect_to "https://britishart.yale.edu/" #unless request.remote_ip.start_with?("130.132")
+    #redirect_to "https://britishart.yale.edu/" #unless request.remote_ip.start_with?("130.132")
   end
 
   def whitelisted?(ip)
