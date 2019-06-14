@@ -11,12 +11,13 @@ namespace :index do
   desc "Copy index original index and augment"
   task copy: :environment do
 
+    puts "start: #{Time.now}"
     SOLR_CONFIG = Rails.application.config_for(:blacklight)
     orig_solr_url = "http://10.5.96.214:8983/solr/bertram2"
     target_solr_url = "http://10.5.96.214:8983/solr/bartram3"
     start=0
     stop=false
-    page=5
+    page=100
     orig_solr = RSolr.connect :url => orig_solr_url #make sure tunnelling prod!
     target_solr = RSolr.connect :url => target_solr_url
 
@@ -26,7 +27,7 @@ namespace :index do
     while stop!=true
       # send a request to /select
       response = orig_solr.post 'select', :params => {
-          :fq=>'object_type_s:"scan"',
+          #:fq=>'object_type_s:"scan"',
           :fl=>'*',
           :sort=>'id asc',
           :start=>start,
@@ -38,19 +39,22 @@ namespace :index do
 
       response["response"]["docs"].each{|doc|
 
-        id = doc["id"].to_s
-        excel_row = excel_hash[id]
-
         docClone=doc.clone
-        docClone["csn_t"] = excel_row[0]
-        docClone["cvn_t"] = excel_row[1]
-        docClone["hsn_t"] = excel_row[2]
-        docClone["hvn_t"] = excel_row[3]
-        docClone["notes_t"] = excel_row[4]
-        docClone["sources_t"] = excel_row[5]
 
-        #docClone.each do |key, array|
-        #end
+        if doc["object_type_s"] == "scan"
+          id = doc["id"].to_s
+          excel_row = excel_hash[id]
+
+          docClone["csn_t"] = excel_row[0]
+          docClone["cvn_t"] = excel_row[1]
+          docClone["hsn_t"] = excel_row[2]
+          docClone["hvn_t"] = excel_row[3]
+          docClone["notes_t"] = excel_row[4]
+          docClone["sources_t"] = excel_row[5]
+
+          #docClone.each do |key, array|
+          #end
+        end
 
         docClone['timestamp'] = Time.now
 
@@ -63,9 +67,10 @@ namespace :index do
       target_solr.commit
       start +=page
       sleep(1)  #be kind to others :)
-      stop = true #temp for test
+      #stop = true #temp for test
     end
     target_solr.optimize
+    puts "end: #{Time.now}"
   end
 
   desc 'Clear the index.  Deletes all documents in the index'
@@ -86,10 +91,11 @@ namespace :index do
     workbook.row(1).each_with_index {|header,i|
       headers[header] = i
     }
+    puts "Headers from excel:"
     puts headers.inspect
 
     loaded_hash = Hash.new
-    ((workbook.first_row + 1)..6).each do |row|
+    ((workbook.first_row + 1)..workbook.last_row).each do |row|
       id = workbook.row(row)[0]
       a = Array.new
       a.push(workbook.row(row)[1])
