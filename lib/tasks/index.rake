@@ -82,6 +82,60 @@ namespace :index do
     solr.optimize
   end
 
+  desc 'Replace_manifest. GSUB replacement of iiif_manifest_s field'
+  task replace_manifest: :environment do
+
+    puts "start: #{Time.now}"
+    SOLR_CONFIG = Rails.application.config_for(:blacklight)
+    orig_solr_url = "http://10.5.96.214:8983/solr/bartram3"
+    target_solr_url = "http://10.5.96.214:8983/solr/bartram3"
+    orig_host = "https://s3.amazonaws.com/bertrammanifests"
+    new_host = "https://s3.amazonaws.com/bartrammanifests"
+    start=0
+    stop=false
+    page=100
+    orig_solr = RSolr.connect :url => orig_solr_url #make sure tunnelling prod!
+    target_solr = RSolr.connect :url => target_solr_url
+
+    while stop!=true
+      # send a request to /select
+      response = orig_solr.post 'select', :params => {
+          :fq=>'object_type_s:"scan"',
+          :fl=>'*',
+          :sort=>'id asc',
+          :start=>start,
+          #:rows=>1 #to test
+          :rows=>page
+      }
+      documents = Array.new
+
+      stop = true if response['response']['docs'].length == 0
+
+      response["response"]["docs"].each{|doc|
+
+        puts "ID#{doc["id"]}"
+        docClone=doc.clone
+        #"iiif_manifest_s": "https://s3.amazonaws.com/bertrammanifests/scan-0001.json",
+        orig_manifest = doc["iiif_manifest_s"]
+        new_manifest = orig_manifest.gsub(orig_host,new_host)
+        docClone["iiif_manifest_s"] = new_manifest
+        docClone['timestamp'] = Time.now
+
+        documents.push(docClone)
+
+      }
+      puts "page:"+start.to_s
+      puts "len:" + documents.length.to_s
+      target_solr.add documents
+      target_solr.commit
+      start +=page
+      sleep(1)  #be kind to others :)
+      #stop = true #temp for test
+    end
+    target_solr.optimize
+    puts "end: #{Time.now}"
+  end
+
   def load_excel(excel_filename)
     #puts "Filename:"+excel_filename
     xlsx = Roo::Spreadsheet.open(excel_filename)
