@@ -1,4 +1,8 @@
-
+<!--<a class="sb" href="/assets/scans/image-0001-00.jpg" title="Hey here's a caption">Image One</a>-->
+<dl class="dl-horizontal  dl-invert">
+  <dt class="blacklight-images">Images:</dt>
+  <dd class="blacklight-images"><%= pull_object_images %></dd>
+</dl>
 <!--https://github.com/UniversalViewer/universalviewer/wiki/Embedding-->
 <% unless @document[:iiif_manifest_s].nil? %>
 <div class="uv"

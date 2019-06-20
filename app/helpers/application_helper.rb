@@ -93,4 +93,19 @@ def render_entries options={}
 
     markdown.render(text).html_safe
   end
+
+  def pull_object_images
+    markup = ""
+    id = request.original_url.split("/").last.gsub("scan","image")
+    dir = Rails.root.join("app","assets","images","scans")
+    Dir.chdir(dir)
+    sorted = Dir.glob("#{id}*.jpg").sort
+    sorted.each do |f|
+      #image-0001-00.jpg
+      markup += "<a class=\"sb\" href=\"/assets/scans/#{f}\" title=\"#{f}\">#{f}</a></br>"
+      #a class="sb" href="/assets/scans/image-0001-00.jpg" title="Hey here's a caption">Image One</a>
+      #puts f
+    end
+    markup.html_safe
+  end
 end
