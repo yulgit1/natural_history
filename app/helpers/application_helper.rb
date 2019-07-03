@@ -108,4 +108,22 @@ def render_entries options={}
     end
     markup.html_safe
   end
+
+  def count_object_images
+    markup = ""
+    id = request.original_url.split("/").last.gsub("scan","image")
+    dir = Rails.root.join("app","assets","images","scans")
+    Dir.chdir(dir)
+    sorted = Dir.glob("#{id}*.jpg").sort
+    sorted.size
+  end
+
+  def get_thumbnail(s)
+    #s = "http://localhost:3000/image-service/image-0001-00/full/150,150/0/default.jpg"
+    s2  = s.split("/")[4] + ".jpg"
+    s3 = "http://localhost:3000/assets/scans/#{s2}"
+
+    return s3
+  end
+
 end
