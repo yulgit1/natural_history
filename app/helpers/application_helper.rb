@@ -102,10 +102,12 @@ def render_entries options={}
     sorted = Dir.glob("#{id}*.jpg").sort
     sorted.each do |f|
       #image-0001-00.jpg
-      markup += "<a class=\"sb\" href=\"/assets/scans/#{f}\" title=\"#{f}\">#{f}</a></br>"
+      #markup += "<a class=\"fancybox\" rel=\"group\" href=\"/assets/scans/#{f}\" title=\"#{f}\">#{f}</a></br>"
       #a class="sb" href="/assets/scans/image-0001-00.jpg" title="Hey here's a caption">Image One</a>
+      markup += "<a class=\"fancybox\" rel=\"group\" href=\"/assets/scans/#{f}\"><img src=\"/assets/scans/#{f}\" height=\"150\" width=\"150\"/ style=\"border:1px solid black\"></a>&nbsp;&nbsp; "
       #puts f
     end
+    markup += "</br>"
     markup.html_safe
   end
 

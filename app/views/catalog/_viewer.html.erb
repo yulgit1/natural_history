@@ -1,15 +1,18 @@
 <!--<a class="sb" href="/assets/scans/image-0001-00.jpg" title="Hey here's a caption">Image One</a>-->
-<dl class="dl-horizontal  dl-invert">
-  <dt class="blacklight-images">Images:</dt>
-  <dd class="blacklight-images"><%= pull_object_images %></dd>
-</dl>
+<% if count_object_images > 0 %>
+  <dl class="dl-horizontal  dl-invert">
+    <dt class="blacklight-images">Images:</dt>
+    <dd class="blacklight-images"><%= pull_object_images %></dd>
+    </dl>
+<% end %>
+<!--<a class="fancybox" rel="group" href="/assets/scans/image-0001-00.jpg"><img src="/assets/scans/image-0001-00.jpg" height="150" width="150" alt="" /></a>-->
 <!--https://github.com/UniversalViewer/universalviewer/wiki/Embedding-->
 <!--
-<% unless @document[:iiif_manifest_s].nil? %>
+<%# unless @document[:iiif_manifest_s].nil? %>
 <div class="uv"
      data-locale="en-GB:English (GB),cy-GB:Cymraeg"
      data-config="/config.json"
-     data-uri=<%= @document[:iiif_manifest_s] %>
+     data-uri=<%#= @document[:iiif_manifest_s] %>
      data-collectionindex="0"
      data-manifestindex="0"
      data-sequenceindex="0"
@@ -19,6 +22,6 @@
      style="width:924px;height:668px; background-color: #000">
 </div>
 <script type="text/javascript" id="embedUV" src="http://universalviewer.io/uv/lib/embed.js"></script><script type="text/javascript">/* wordpress fix */</script>
-<% end %>
+<%# end %>
 -->
 
