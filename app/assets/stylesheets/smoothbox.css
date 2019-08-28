@@ -81,7 +81,7 @@ body, html {
 }
 
 .sb-item img {
-    max-width: 100%;
+    max-width: 80%;
     max-height: 100%;
     display: block;
     border-radius: 2px;

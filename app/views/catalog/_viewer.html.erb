@@ -2,7 +2,7 @@
 <% if count_object_images > 0 %>
   <dl class="dl-horizontal  dl-invert">
     <dt class="blacklight-images">Images:</dt>
-    <dd class="blacklight-images"><%= pull_object_images %></dd>
+    <dd class="blacklight-images"><p><a href="/print/scan/<%= @document[:id] %>">Print Images and Entries</a></p><%= pull_object_images %></dd>
     </dl>
 <% end %>
 <!--<a class="fancybox" rel="group" href="/assets/scans/image-0001-00.jpg"><img src="/assets/scans/image-0001-00.jpg" height="150" width="150" alt="" /></a>-->

@@ -111,6 +111,54 @@ def render_entries options={}
     markup.html_safe
   end
 
+  def print_images(scanid)
+    markup = ""
+    #scanid = "image-0001"
+    scanid.gsub!("scan","image")
+    dir = Rails.root.join("app","assets","images","scans")
+    Dir.chdir(dir)
+    sorted = Dir.glob("#{scanid}*.jpg").sort
+    sorted.each do |f|
+      markup += "<div style=\"page-break-after: always\">"
+      markup += "<img src=\"/assets/scans/#{f}\" width=\"670\"/ style=\"border:1px solid black\">"
+      markup += "</div>"
+      #puts f
+    end
+    #markup += "</br>"
+    markup.html_safe
+  end
+
+  def print_entries(scanid)
+    solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
+    query = "scan_sm:\"#{scanid}\""
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 10, :fl => "entries_t, id, label_s" }
+    entries = []
+    if solr_response["response"] && solr_response["response"]["docs"].size > 0
+      solr_response["response"]["docs"].each_with_index { |doc, i|
+        if doc["entries_t"][0]
+          obj_link = "\n[#{doc["label_s"]}](#{doc["id"]})"
+          entries.append(obj_link + doc["entries_t"][0])
+        end
+      }
+    end
+    markdown(entries.join)
+  end
+
+  def headers_for_print(scanid)
+    solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
+    query = "id:\"#{scanid}\""
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 10, :fl => "title_t, author_t" }
+    headers = ""
+    if solr_response["response"] && solr_response["response"]["docs"].size > 0
+      solr_response["response"]["docs"].each_with_index { |doc, i|
+        headers += "<p>#{scanid}</p>"
+        headers += "<p>#{doc["title_t"][0]}</p>" if doc["title_t"][0]
+        headers += "<p>#{doc["author_t"][0]}</p>" if doc["author_t"][0]
+      }
+    end
+    headers.html_safe
+  end
+
   def count_object_images
     markup = ""
     id = request.original_url.split("/").last.gsub("scan","image")

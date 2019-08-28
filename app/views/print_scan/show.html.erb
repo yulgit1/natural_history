@@ -1,0 +1,16 @@
+<style type="text/css" media="print">
+  .printbutton {
+    visibility: hidden;
+    display: none;
+  }
+</style>
+<!--<script>
+document.write("<input type='button' onClick='window.print()' class='printbutton' value='Print This Page'/>");
+</script>-->
+<input type='button' onClick='window.print()' class='printbutton' value='Print This Page'/>
+&nbsp;
+<input type='button' onClick="location.href='/catalog/<%= @scanid %>'" class='printbutton' value='Go back'/>
+<!--<button onclick="window.print();return false;">Value</button>-->
+<%= headers_for_print(@scanid) %>
+<%= print_images(@scanid) %>
+<%= @entries %>
