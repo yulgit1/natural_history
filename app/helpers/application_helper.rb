@@ -120,7 +120,7 @@ def render_entries options={}
     sorted = Dir.glob("#{scanid}*.jpg").sort
     sorted.each do |f|
       markup += "<div style=\"page-break-after: always\">"
-      markup += "<img src=\"/assets/scans/#{f}\" width=\"670\"/ style=\"border:1px solid black\">"
+      markup += "<img class=\"contain\" src=\"/assets/scans/#{f}\" width=\"700\" height=\"840\" style=\"object-fit: contain;\">"
       markup += "</div>"
       #puts f
     end
