@@ -1,0 +1,10 @@
+<style type="text/css" media="print">
+  .printbutton {
+    visibility: hidden;
+    display: none;
+  }
+</style>
+<input type='button' onClick='window.print()' class='printbutton' value='Print This Page'/>
+&nbsp;
+<input type='button' onClick="location.href='/catalog/<%= @objid %>'" class='printbutton' value='Go back'/>
+<%= headers_for_print(@objid) %>
