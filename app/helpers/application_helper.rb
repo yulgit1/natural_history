@@ -147,16 +147,56 @@ def render_entries options={}
   def headers_for_print(scanid)
     solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
     query = "id:\"#{scanid}\""
-    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 10, :fl => "title_t, author_t" }
-    headers = ""
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 10, :fl => "*" }
+
+    labels = ["ID:","Title:","Label:","Location:","Author:","Related Scan:", "Scientific Name (GNRD):","Current Sci Name:",
+              "Current Vern Name:","Historical Sci Name:","Historical Vern Name:","Identification Notes:","Identification Sources:",
+              "Description:","Scan Subject:","Container:","Recto:","Verso:","Photo:","Stamp:"]
+
+    headers = "<div><dl style=\"width:700\">"
     if solr_response["response"] && solr_response["response"]["docs"].size > 0
       solr_response["response"]["docs"].each_with_index { |doc, i|
-        headers += "<p>#{scanid}</p>"
-        headers += "<p>#{doc["title_t"][0]}</p>" if doc["title_t"][0]
-        headers += "<p>#{doc["author_t"][0]}</p>" if doc["author_t"][0]
+        #solr_fields =  [doc["id"],doc["title_t"][0],doc["label_s"],doc["location_s"],doc["author_display"],doc[""]]
+        headers += "<div style=\"font-weight: bold;\">ID:</div><div>#{doc['id']}</<div>"
+        headers += "<div style=\"font-weight: bold;\">Title:</div><div>#{curry_array(doc['title_t'])}</div>" if doc["title_t"]
+        headers += "<div style=\"font-weight: bold;\">Label:</div><div>#{doc['label_s']}</div>" if doc["label_s"]
+        headers += "<div style=\"font-weight: bold;\">Location:</div><div>#{doc['location_s']}</div>" if doc["recto_s"]
+        headers += "<div style=\"font-weight: bold;\">Author:</div><div>#{doc['author_display']}</div>" if doc["author_display"]
+        headers += "<div style=\"font-weight: bold;\">Related Scan:</div><div>#{curry_array(doc['scan_sm'])}</div>" if doc["scan_sm"]
+        headers += "<div style=\"font-weight: bold;\">Scientific Name (GNRD):</div><div>#{curry_array(doc['gnrd_sm'])}</div>" if doc["gnrd_sm"]
+        headers += "<div style=\"font-weight: bold;\">Current Sci Name:</div><div>#{curry_array(doc['csn_t'])}</div>" if doc["csn_t"]
+        headers += "<div style=\"font-weight: bold;\">Current Vern Name:</div><div>#{curry_array(doc['cvn_t'])}</div>" if doc["cvn_t"]
+        headers += "<div style=\"font-weight: bold;\">Historical Sci Name:</div><div>#{curry_array(doc['hsn_t'])}</div>" if doc["hsn_t"]
+        headers += "<div style=\"font-weight: bold;\">Historical Vern Name:</div><div>#{curry_array(doc['hvn_t'])}</div>" if doc["hvn_t"]
+        headers += "<div style=\"font-weight: bold;\">Identification Notes:</div><div>#{curry_array(doc['notes_t'])}</div>" if doc["notes_t"]
+        headers += "<div style=\"font-weight: bold;\">Identification Sources:</div><div>#{curry_array(doc['sources_t'])}</div>" if doc["sources_t"]
+        headers += "<div style=\"font-weight: bold;\">Scan Subject:</div><div>#{doc['subject_topic_s']}</div>" if doc["subject_topic_s"]
+        headers += "<div style=\"font-weight: bold;\">Container:</div><div>#{doc['part_of_s']}</div>" if doc["part_of_s"]
+        headers += "<div style=\"font-weight: bold;\">Recto:</div><div>#{doc['recto_s']}</div>" if strip_char(doc["recto_s"])
+        headers += "<div style=\"font-weight: bold;\">Verso:</div><div>#{doc['verso_s']}</div>" if strip_char(doc["verso_s"])
+        headers += "<div style=\"font-weight: bold;\">Photo:</div><div>#{doc['photo_s']}</div>" if strip_char(doc["photo_s"])
+        headers += "<div style=\"font-weight: bold;\">Stamp:</div><div>#{doc['institutional_stamp_s']}</div>" if strip_char(doc["institutional_stamp_s"])
       }
     end
+    headers += "</dl></div>"
     headers.html_safe
+  end
+
+  def curry_array(array)
+    s = ""
+    array.each { |a|
+      s+= a + "</br>"
+    }
+    s[0...-5]
+  end
+
+  def strip_char(s)
+    return nil if s.nil?
+    i = 0
+    c = "\n"
+    s[i] = "" if s[i]==c
+    return nil if s.length==0
+    s
   end
 
   def count_object_images
