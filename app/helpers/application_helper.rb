@@ -144,14 +144,11 @@ def render_entries options={}
     markdown(entries.join)
   end
 
+  #used for objid AND scanid lookup in print_scan resource
   def headers_for_print(scanid)
     solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
     query = "id:\"#{scanid}\""
     solr_response = solr.get 'select', :params => {:fq=> query, :rows => 10, :fl => "*" }
-
-    labels = ["ID:","Title:","Label:","Location:","Author:","Related Scan:", "Scientific Name (GNRD):","Current Sci Name:",
-              "Current Vern Name:","Historical Sci Name:","Historical Vern Name:","Identification Notes:","Identification Sources:",
-              "Description:","Scan Subject:","Container:","Recto:","Verso:","Photo:","Stamp:"]
 
     headers = "<div><dl style=\"width:700\">"
     if solr_response["response"] && solr_response["response"]["docs"].size > 0
@@ -160,7 +157,7 @@ def render_entries options={}
         headers += "<div style=\"font-weight: bold;\">ID:</div><div>#{doc['id']}</<div>"
         headers += "<div style=\"font-weight: bold;\">Title:</div><div>#{curry_array(doc['title_t'])}</div>" if doc["title_t"]
         headers += "<div style=\"font-weight: bold;\">Label:</div><div>#{doc['label_s']}</div>" if doc["label_s"]
-        headers += "<div style=\"font-weight: bold;\">Location:</div><div>#{doc['location_s']}</div>" if doc["recto_s"]
+        headers += "<div style=\"font-weight: bold;\">Location:</div><div>#{doc['location_s']}</div>" if doc["location_s"]
         headers += "<div style=\"font-weight: bold;\">Author:</div><div>#{doc['author_display']}</div>" if doc["author_display"]
         headers += "<div style=\"font-weight: bold;\">Related Scan:</div><div>#{curry_array(doc['scan_sm'])}</div>" if doc["scan_sm"]
         headers += "<div style=\"font-weight: bold;\">Scientific Name (GNRD):</div><div>#{curry_array(doc['gnrd_sm'])}</div>" if doc["gnrd_sm"]
@@ -176,6 +173,9 @@ def render_entries options={}
         headers += "<div style=\"font-weight: bold;\">Verso:</div><div>#{doc['verso_s']}</div>" if strip_char(doc["verso_s"])
         headers += "<div style=\"font-weight: bold;\">Photo:</div><div>#{doc['photo_s']}</div>" if strip_char(doc["photo_s"])
         headers += "<div style=\"font-weight: bold;\">Stamp:</div><div>#{doc['institutional_stamp_s']}</div>" if strip_char(doc["institutional_stamp_s"])
+        #below: object only
+        headers += "<div style=\"font-weight: bold;\">Notebook Header:</div><div>#{doc['subject_s']}</div>" if doc["subject_s"] && doc["object_type_s"]=="object"
+        headers += "<div style=\"font-weight: bold;\">Description:</div><div>#{markdown(curry_array(doc['entries_t']))}</div>" if strip_char(doc["entries_t"]) && doc["object_type_s"]=="object"
       }
     end
     headers += "</dl></div>"

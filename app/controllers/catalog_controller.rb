@@ -12,6 +12,11 @@ class CatalogController < ApplicationController
     return false if doc[:format] == "object"
   end
 
+  def is_object?(field_config,doc)
+    return true if doc[:format] == "object"
+    return false if doc[:format] == "scan"
+  end
+
 
 
   configure_blacklight do |config|
@@ -132,6 +137,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'hvn_t', label: 'Historial Vern Name'
     config.add_show_field 'notes_t', label: 'Identification Notes'
     config.add_show_field 'sources_t', label: 'Identification Sources'
+    config.add_show_field 'subject_s', label: 'Notebook Header', link_to_search: true, if: :is_object?
     config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
     config.add_show_field 'subject_topic_s', label: 'Scan Subject', link_to_search: true, if: :is_scan?
     config.add_show_field 'part_of_s', label: 'Container', link_to_search: true, if: :is_scan?

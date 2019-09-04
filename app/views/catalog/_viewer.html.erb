@@ -5,6 +5,12 @@
     <dd class="blacklight-images"><p><a href="/print/scan/<%= @document[:id] %>">Print Images and Entries</a></p><%= pull_object_images %></dd>
     </dl>
 <% end %>
+<% if @document[:object_type_s]=="object" %>
+  <dl class="dl-horizontal  dl-invert">
+    <dt class="blacklight-images"></dt>
+    <dd class="blacklight-images"><p><a href="/print/object/<%= @document[:id] %>">Print Entries</a></p></dd>
+  </dl>
+<% end %>
 <!--<a class="fancybox" rel="group" href="/assets/scans/image-0001-00.jpg"><img src="/assets/scans/image-0001-00.jpg" height="150" width="150" alt="" /></a>-->
 <!--https://github.com/UniversalViewer/universalviewer/wiki/Embedding-->
 <!--

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   mount Riiif::Engine => '/image-service', as: 'riiif'
 
   get 'print/scan/:scan' => 'print_scan#show'
+  get 'print/object/:object' => 'print_scan#object'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -5,4 +5,9 @@ class PrintScanController < ApplicationController
     @entries = print_entries(@scanid)
     render layout: false
   end
+
+  def object
+    @objid = params[:object]
+    render layout: false
+  end
 end
