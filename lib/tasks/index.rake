@@ -13,15 +13,18 @@ namespace :index do
 
     puts "start: #{Time.now}"
     SOLR_CONFIG = Rails.application.config_for(:blacklight)
-    orig_solr_url = "http://10.5.96.214:8983/solr/bertram2"
-    target_solr_url = "http://10.5.96.214:8983/solr/bartram3"
+    #orig_solr_url = "http://10.5.96.214:8983/solr/bertram2"
+    #target_solr_url = "http://10.5.96.214:8983/solr/bartram3"
+    orig_solr_url = "http://10.5.96.214:8983/solr/bartram3"
+    target_solr_url = "http://10.5.96.214:8983/solr/bartram4"
     start=0
     stop=false
     page=100
     orig_solr = RSolr.connect :url => orig_solr_url #make sure tunnelling prod!
     target_solr = RSolr.connect :url => target_solr_url
 
-    excel_filename = Rails.root.join("lib","assets","tang-jun5_2019.xlsx").to_s
+    #excel_filename = Rails.root.join("lib","assets","tang-jun5_2019.xlsx").to_s
+    excel_filename = Rails.root.join("lib","assets","tang-july9_2019.xlsx").to_s
     excel_hash = load_excel(excel_filename)
 
     while stop!=true
