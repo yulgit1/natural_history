@@ -4,7 +4,8 @@ class PrintScanController < ApplicationController
   before_action :geteditpw, only: [:confirm]
 
   def geteditpw
-    @setpw=File.open(Rails.root.join("config","editpw.txt")).read
+    @setpw = File.open(Rails.root.join("config","editpw.txt")).read
+    @setpw = @setpw.strip
   end
   def show
     @scanid = params[:scan]
