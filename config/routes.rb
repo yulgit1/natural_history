@@ -26,8 +26,12 @@ Rails.application.routes.draw do
 
   mount Riiif::Engine => '/image-service', as: 'riiif'
 
+  #to refactor: MVC name not exactly corrent, rather than 'print_scan' do something more semantic
   get 'print/scan/:scan' => 'print_scan#show'
   get 'print/object/:object' => 'print_scan#object'
+  get 'edit/document' => 'print_scan#edit'
+  post 'edit/confirm' => 'print_scan#confirm'
+  post 'edit/submit' => 'print_scan#submit'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

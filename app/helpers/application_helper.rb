@@ -216,4 +216,45 @@ def render_entries options={}
     return s3
   end
 
+  def getfields(id,field)
+    solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
+    query = "id:\"#{id}\""
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 1, :fl => "*" }
+
+    found = true
+    return_content = ""
+    if solr_response["response"] && solr_response["response"]["docs"].size > 0
+      solr_response["response"]["docs"].each_with_index { |doc, i|
+        #puts doc.inspect
+        field_sym = field.to_sym
+        return_content = doc["#{field_sym}"] if doc["#{field_sym}"]
+      }
+    else
+      found = false
+    end
+    return found, return_content
+  end
+
+  def updatedoc(id,field, content)
+    solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
+    query = "id:\"#{id}\""
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 1, :fl => "*" }
+
+    found = true
+    return_content = ""
+    if solr_response["response"] && solr_response["response"]["docs"].size > 0
+      solr_response["response"]["docs"].each_with_index { |doc, i|
+        #puts doc.inspect
+        field_sym = field.to_sym
+        docClone=doc.clone
+        docClone["#{field_sym}"] = content
+        docClone['timestamp'] = Time.now
+        solr.add docClone
+        solr.commit
+      }
+    else
+      found = false
+    end
+    return found, return_content
+  end
 end

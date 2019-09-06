@@ -1,0 +1,30 @@
+<% if @badpw %>
+  <h3>You did not enter a correct password</h3>
+  <a href="document">Go back</a>
+<% elsif @found==true %>
+  <h3>You are opting to change:</h3>
+  <dl>
+    <dt>Document</dt>
+    <dd><%= @id %></dd>
+    <dt>Field</dt>
+    <dd><%= @field %></dd>
+    <dt>Edit Type</dt>
+    <dd><%= @edittype %></dd>
+    <dt>Content Old</dt>
+    <dd><%= @existing_content %></dd>
+    <dt>Content New</dt>
+    <dd><%= @content %></dd>
+  </dl>
+  </br>
+  <form id="submit" accept-charset="UTF-8" action="submit" method="post">
+    <input name="utf8" type="hidden" value="&#x2713;" />
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input name="id" type="hidden" value="<%= @id %>" />
+    <input name="field" type="hidden" value="<%= @field %>" />
+    <input name="content" type="hidden" value="<%= @content %>" />
+    <input name="replaced" type="hidden" value="<%= @existing_content %>" />
+    <input name="commit" type="submit" value="Submit" color="red" />
+<% else %>
+  <h3>Document <%= @id %> not found.</h3>
+  <a href="document">Go back</a>
+<% end %>

@@ -1,0 +1,29 @@
+<h3>Edit a natural history scan or object document</h3>
+<p>Reference Link (scan): http://10.5.96.214:3000/catalog/scan-0001.json</p>
+<p>Reference Link (object) http://10.5.96.214:3000/catalog/s05_b3_o08.json</p>
+<form id="edit" accept-charset="UTF-8" action="confirm" method="post">
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <label for="id">Document ID</label>
+  </br>
+  <input name="id" type="text" value="" required />
+  </br>
+  <label for="field">Field</label>
+  </br>
+  <input name="field" type="text" value="" required />
+  </br>
+  <label for="edittype">Edit Type (for multivalued fields)</label>
+  </br>
+  <input type="radio" name="edittype" value="replace" required> Replace</input>
+  <input type="radio" name="edittype" value="append"> Append</input>
+  </br>
+  <label for="content">Content</label>
+  </br>
+  <input name="content" type="text" value="" size="200" required />
+  </br>
+  <label for="pw">Password</label>
+  </br>
+  <input name="pw" type="password" required/>
+  </br>
+  <input name="commit" type="submit" value="Submit"/>
+</form>
