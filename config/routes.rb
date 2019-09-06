@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'edit/document' => 'print_scan#edit'
   post 'edit/confirm' => 'print_scan#confirm'
   post 'edit/submit' => 'print_scan#submit'
+  get 'edit/solr_lookup' => 'print_scan#solr_lookup'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

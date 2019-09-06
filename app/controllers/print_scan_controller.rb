@@ -49,4 +49,26 @@ class PrintScanController < ApplicationController
     @replaced = params[:replaced]
     updatedoc(@id,@field,@content)
   end
+
+  def solr_lookup
+    id = params[:id]
+    field = params[:field]
+    #puts id
+    #puts field
+    solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
+    query = "id:\"#{id}\""
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 1, :fl => "*" }
+
+    content = ""
+    if solr_response["response"] && solr_response["response"]["docs"].size > 0
+      solr_response["response"]["docs"].each_with_index { |doc, i|
+        #puts doc
+        field_sym = field.to_sym
+        content = doc["#{field_sym}"]
+        puts content
+      }
+    end
+
+    render :plain => content
+  end
 end

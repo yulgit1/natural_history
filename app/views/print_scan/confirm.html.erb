@@ -24,6 +24,9 @@
     <input name="content" type="hidden" value="<%= @content %>" />
     <input name="replaced" type="hidden" value="<%= @existing_content %>" />
     <input name="commit" type="submit" value="Submit" color="red" />
+  </form>
+  </br>
+  <a href="document">Go back</a>
 <% else %>
   <h3>Document <%= @id %> not found.</h3>
   <a href="document">Go back</a>

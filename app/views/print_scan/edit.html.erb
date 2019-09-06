@@ -6,11 +6,11 @@
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <label for="id">Document ID</label>
   </br>
-  <input name="id" type="text" value="" required />
+  <input name="id" type="text" value="" id="id" required />
   </br>
-  <label for="field">Field</label>
+  <label for="field">Field (click enter to lookup value)</label>
   </br>
-  <input name="field" type="text" value="" required />
+  <input name="field" type="text" value="" required onkeydown="if (event.keyCode==13) get_field()" id="field" />
   </br>
   <label for="edittype">Edit Type (for multivalued fields)</label>
   </br>
@@ -27,3 +27,5 @@
   </br>
   <input name="commit" type="submit" value="Submit"/>
 </form>
+</br>
+<div id="field_contents"></div>
