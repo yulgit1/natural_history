@@ -47,7 +47,12 @@ class PrintScanController < ApplicationController
     @field = params[:field]
     @content = params[:content]
     @replaced = params[:replaced]
-    updatedoc(@id,@field,@content)
+    @edittype = params[:edittype]
+    if @edittype == "delete"
+      deletefield(@id,@field)
+    else
+      updatedoc(@id,@field,@content)
+    end
   end
 
   def solr_lookup

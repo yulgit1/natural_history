@@ -257,4 +257,29 @@ def render_entries options={}
     end
     return found, return_content
   end
+
+  def deletefield(id,field)
+    solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
+    query = "id:\"#{id}\""
+    solr_response = solr.get 'select', :params => {:fq=> query, :rows => 1, :fl => "*" }
+
+    found = true
+    return_content = ""
+    if solr_response["response"] && solr_response["response"]["docs"].size > 0
+      solr_response["response"]["docs"].each_with_index { |doc, i|
+        #puts doc.inspect
+        field_sym = field.to_sym
+        docClone=doc.clone
+        if docClone["#{field_sym}"].nil? == false
+          docClone = docClone.except("#{field_sym}")
+          docClone['timestamp'] = Time.now
+          solr.add docClone
+          solr.commit
+        end
+      }
+    else
+      found = false
+    end
+    return found, return_content
+  end
 end
