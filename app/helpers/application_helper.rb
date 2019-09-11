@@ -247,9 +247,8 @@ def render_entries options={}
         #puts doc.inspect
         field_sym = field.to_sym
         docClone=doc.clone
-	      if content.start_with?("[")
-          content = content.gsub("[","").gsub("]","").gsub("\"","").split(",")
-          content = content.map { |s| s.strip}
+        if content.kind_of?(Array)
+          content = content.map! { |f| URI::decode(f) }
         end
         docClone["#{field_sym}"] = content
         docClone['timestamp'] = Time.now

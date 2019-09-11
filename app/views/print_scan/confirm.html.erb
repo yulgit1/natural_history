@@ -22,7 +22,13 @@
     <input name="id" type="hidden" value="<%= @id %>" />
     <input name="field" type="hidden" value="<%= @field %>" />
     <input name="edittype" type="hidden" value="<%= @edittype %>" />
-    <input name="content" type="hidden" value="<%= @content %>" />
+    <% if @content.kind_of?(Array) %>
+      <% html = "" %>
+      <% @content.each { |c| html += "<input name=\"content[]\" type=\"hidden\" value=\"" + URI::encode(c) +"\" />" } %>
+      <%= html.html_safe %>
+    <% else %>
+        <input name="content" type="hidden" value="<%= @content %>" />
+    <% end %>
     <input name="replaced" type="hidden" value="<%= @existing_content %>" />
     <input name="commit" type="submit" value="Submit" color="red" />
   </form>
