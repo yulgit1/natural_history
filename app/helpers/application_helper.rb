@@ -7,6 +7,22 @@ module ApplicationHelper
     value
   end
 
+  def list_multivalued options={}
+    values = []
+    options[:value].each {  |item|
+      values.append(item)
+    }
+    values.join('<br/>').html_safe
+  end
+
+  def list_gnrd_as_link options={}
+    values = []
+    options[:value].each {  |item|
+      values.append("<a href=\"/?f[gnrd_sm][]=#{URI::encode(item)}\">#{item}</a>")
+    }
+    values.join('<br/>').html_safe
+  end
+
 def render_entries options={}
     obj_id = options[:document][:id]
     solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]

@@ -130,13 +130,14 @@ class CatalogController < ApplicationController
     config.add_show_field 'location_s', label: 'Location', link_to_search: true
     config.add_show_field 'author_display', label: 'Author', link_to_search: true
     config.add_show_field 'scan_sm', label: 'Related Scan', helper_method: 'render_scan_as_link'
-    config.add_show_field 'gnrd_sm', link_to_search: true, label: 'Scientific Name (GNRD)'
-    config.add_show_field 'csn_t', label: 'Current Sci Name'
-    config.add_show_field 'cvn_t', label: 'Current Vern Name'
-    config.add_show_field 'hsn_t', label: 'Historical Sci Name'
-    config.add_show_field 'hvn_t', label: 'Historial Vern Name'
-    config.add_show_field 'notes_t', label: 'Identification Notes'
-    config.add_show_field 'sources_t', label: 'Identification Sources'
+    #config.add_show_field 'gnrd_sm', link_to_search: true, label: 'Scientific Name (GNRD)'
+    config.add_show_field 'gnrd_sm', label: 'Scientific Name (GNRD)', helper_method: 'list_gnrd_as_link'
+    config.add_show_field 'csn_t', label: 'Current Sci Name', helper_method: 'list_multivalued'
+    config.add_show_field 'cvn_t', label: 'Current Vern Name', helper_method: 'list_multivalued'
+    config.add_show_field 'hsn_t', label: 'Historical Sci Name', helper_method: 'list_multivalued'
+    config.add_show_field 'hvn_t', label: 'Historial Vern Name', helper_method: 'list_multivalued'
+    config.add_show_field 'notes_t', label: 'Identification Notes', helper_method: 'list_multivalued'
+    config.add_show_field 'sources_t', label: 'Identification Sources', helper_method: 'list_multivalued'
     config.add_show_field 'subject_s', label: 'Notebook Header', link_to_search: true, if: :is_object?
     config.add_show_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
     config.add_show_field 'subject_topic_s', label: 'Scan Subject', link_to_search: true, if: :is_scan?
