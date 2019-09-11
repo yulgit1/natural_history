@@ -35,7 +35,6 @@ class PrintScanController < ApplicationController
         new_content = Array.new
         new_content.push(@content)
         @content = @existing_content + new_content
-        @existing_content
       end
     else
       @badpw = true
