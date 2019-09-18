@@ -32,8 +32,13 @@ def render_entries options={}
     if solr_response["response"] && solr_response["response"]["docs"].size > 0
       solr_response["response"]["docs"].each_with_index { |doc, i|
         if doc["entries_t"][0]
-          obj_link = "\n[#{doc["label_s"]}](#{doc["id"]})"
+          obj_link = "\n[#{doc["label_s"]}](#{doc["id"]})\n"
           entries.append(obj_link + doc["entries_t"][0])
+          doc["entries_t"].each_with_index { |entry, ii|
+            if ii > 0
+              entries.append("\n#{doc["entries_t"][ii]}")
+            end
+          }
         end
       }
     end
@@ -152,9 +157,14 @@ def render_entries options={}
     if solr_response["response"] && solr_response["response"]["docs"].size > 0
       solr_response["response"]["docs"].each_with_index { |doc, i|
         if doc["entries_t"][0]
-          obj_link = "\n[#{doc["label_s"]}](#{doc["id"]})"
+          obj_link = "\n[#{doc["label_s"]}](#{doc["id"]})\n"
           entries.append(obj_link + doc["entries_t"][0])
         end
+        doc["entries_t"].each_with_index { |entry, ii|
+          if ii > 0
+            entries.append("\n#{doc["entries_t"][ii]}")
+          end
+        }
       }
     end
     markdown(entries.join)
