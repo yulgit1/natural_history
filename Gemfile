@@ -7,11 +7,11 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.1'
+gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.7'
+gem 'puma', '>= 3.12.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -60,7 +60,7 @@ end
 
 gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'
-gem 'devise'
+gem 'devise', '>= 4.7.1'
 gem 'devise-guests', '~> 0.6'
 gem 'blacklight-marc', '~> 6.1'
 
@@ -68,13 +68,27 @@ gem 'redcarpet'
 
 gem 'riiif'
 
-gem 'nokogiri', '~> 1.8.2'
+gem 'nokogiri', '>= 1.10.8'
 
-gem 'loofah', '~> 2.2.1'
+gem 'loofah', '>= 2.3.1'
 gem 'rails-html-sanitizer', '~> 1.0.4'
 
 gem 'sprockets', '~> 3.7.2'
 
 gem 'mysql2', '0.4.10'
+
+gem 'roo'
+
+gem 'rubyzip', '>= 1.2.2'
+
+gem 'ffi', '>= 1.9.24'
+
+gem 'actionview', '>= 5.1.6.2'
+
+gem 'bootstrap-sass', '>= 3.4.1'
+
+gem 'activejob', '>= 5.1.6.1'
+
+gem 'rack', '>= 2.0.8'
 
 gem 'roo'
