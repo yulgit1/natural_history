@@ -15,8 +15,12 @@ namespace :index do
 
     puts "start: #{Time.now}"
     SOLR_CONFIG = Rails.application.config_for(:blacklight) #good to know
-    orig_solr_url = "http://10.5.96.214:8983/solr/bartram4"
-    target_solr_url = "http://10.5.96.214:8983/solr/bartram5"
+    #ssh -i "ycba-test.pem" -L 8983:localhost:8983 10.5.96.214 -l ec2-user
+    #orig_solr_url = "http://10.5.96.214:8983/solr/bartram4"
+    #target_solr_url = "http://10.5.96.214:8983/solr/bartram5"
+    orig_solr_url = "http://localhost:8983/solr/bartram4"
+    target_solr_url = "http://localhost:8983/solr/bartram5"
+
     start=0
     stop=false
     page=100 # for real
@@ -63,7 +67,11 @@ namespace :index do
 
   def parsenames s
     #s.split(",").collect(&:strip).reject {|v| v.empty?}.collect { |v| v.split(")").collect{|x| x.split("(")[0]}.join}.collect(&:strip).collect { |x| x.gsub(/ +/, " ")}
-    s.split(")").collect{|x| x.split("(")[0]}.join.split(",").collect(&:strip).reject {|v| v.empty?}.collect { |x| x.gsub(/ +/, " ")}
+    if s[0].to_i > 0
+      s2 = s.split(/(\d+\.)/).reject.each_with_index { |s,i| i.odd? }.collect(&:strip).collect { |v| v.chomp(",")}.reject {|v| v.empty?}.collect { |v| v.split(")").collect{|x| x.split("(")[0]}.join}.collect(&:strip).collect { |x| x.gsub(/ +/, " ")}
+    elsif s[0].to_i == 0
+      s.split(")").collect{|x| x.split("(")[0]}.join.split(",").collect(&:strip).reject {|v| v.empty?}.collect { |x| x.gsub(/ +/, " ")}
+    end
   end
 end
 
