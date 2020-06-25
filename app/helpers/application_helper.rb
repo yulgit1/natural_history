@@ -23,6 +23,38 @@ module ApplicationHelper
     values.join('<br/>').html_safe
   end
 
+  def render_csn_as_link options={}
+    values = []
+    options[:value].each {  |item|
+      values.append("<a href=\"/?f[csn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+    }
+    values.join('<br/>').html_safe
+  end
+
+  def render_cvn_as_link options={}
+    values = []
+    options[:value].each {  |item|
+      values.append("<a href=\"/?f[cvn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+    }
+    values.join('<br/>').html_safe
+  end
+
+  def render_hsn_as_link options={}
+    values = []
+    options[:value].each {  |item|
+      values.append("<a href=\"/?f[hsn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+    }
+    values.join('<br/>').html_safe
+  end
+
+  def render_hvn_as_link options={}
+    values = []
+    options[:value].each {  |item|
+      values.append("<a href=\"/?f[hvn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+    }
+    values.join('<br/>').html_safe
+  end
+
 def render_entries options={}
     obj_id = options[:document][:id]
     solr = RSolr.connect :url => Blacklight.blacklight_yml[Rails.env]["url"]
