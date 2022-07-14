@@ -18,5 +18,6 @@ module NaturalHistory
     'Access-Control-Allow-Origin' => 'http://universalviewer.io',
     'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
   }
+    config.active_record.yaml_column_permitted_classes = [Symbol,ActiveSupport::HashWithIndifferentAccess]
   end
 end

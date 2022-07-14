@@ -47,8 +47,8 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring', '~> 3.0.0'
+  #gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -63,7 +63,8 @@ gem 'rsolr', '>= 1.0'
 gem 'jquery-rails'
 gem 'devise', '>= 4.7.1'
 gem 'devise-guests', '~> 0.6'
-gem 'blacklight-marc', '~> 6.1'
+#gem 'blacklight-marc', '~> 6.1'
+#gem 'blacklight-marc', '~> 7.2.0'
 
 gem 'redcarpet'
 
@@ -76,7 +77,8 @@ gem 'rails-html-sanitizer', '~> 1.4.3'
 
 gem 'sprockets', '~> 3.7.2'
 
-gem 'mysql2', '0.4.10'
+#gem 'mysql2', '0.4.10'
+gem 'mysql2', '~> 0.5'
 
 gem 'roo'
 
@@ -86,7 +88,8 @@ gem 'ffi', '>= 1.9.24'
 
 gem 'actionview', '>= 5.1.6.2'
 
-gem 'bootstrap-sass', '>= 3.4.1'
+#gem 'bootstrap-sass', '>= 3.4.1'
+gem 'bootstrap', '~> 5.1'
 
 gem 'activejob', '>= 5.1.6.1'
 

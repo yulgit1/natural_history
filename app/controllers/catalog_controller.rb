@@ -2,7 +2,7 @@
 class CatalogController < ApplicationController
 
   include Blacklight::Catalog
-  include Blacklight::Marc::Catalog
+  #include Blacklight::Marc::Catalog
 
   #ERJ https://github.com/projectblacklight/blacklight/wiki/Adding-new-document-actions
   #, if: :display_scan_metadata?
