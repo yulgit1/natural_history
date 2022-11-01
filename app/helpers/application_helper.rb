@@ -263,12 +263,16 @@ def render_entries options={}
     dir = Rails.root.join("app","assets","images","scans")
     Dir.chdir(dir)
     sorted = Dir.glob("#{id}*.jpg").sort
+    puts id.inspect
+    puts dir.inspect
+    puts sorted.size
     sorted.size
   end
 
   def get_thumbnail(s)
     #s = "http://localhost:3000/image-service/image-0001-00/full/150,150/0/default.jpg"
-    s2  = s.split("/")[4] + ".jpg"
+    #s2  = s.split("/")[4] + ".jpg" #from iiif_thumbnail_s deprecated 
+    s2 = "image#{s[4,5]}-00.jpg"
     s3 = "http://#{request.host_with_port}/assets/scans/#{s2}"
 
     return s3
