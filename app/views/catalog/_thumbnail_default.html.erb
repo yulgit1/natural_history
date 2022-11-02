@@ -1,2 +1,2 @@
 <%#= image_tag(document[:iiif_thumbnail_s].gsub("localhost","10.5.96.214")) unless document[:iiif_thumbnail_s].nil?  %>
-<%= image_tag(get_thumbnail(document[:id]),size:"150x150") if document[:object_type_s]="scan" %>
+<%= image_tag(get_thumbnail(document[:id]),size:"150x150") if document[:id].start_with?("scan") %>
