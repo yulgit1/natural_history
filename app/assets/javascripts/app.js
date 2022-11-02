@@ -1,6 +1,6 @@
 document.addEventListener("turbolinks:load", function() {
     //console.log('It works on each visit!');
-    $(".fancybox").fancybox();
+    $(".fancybox").fancybox({ parent: "body"});
 });
 
 function get_field() {
