@@ -72,7 +72,7 @@ gem 'riiif'
 gem 'nokogiri', '>= 1.10.8'
 
 gem 'loofah', '>= 2.3.1'
-gem 'rails-html-sanitizer', '~> 1.4.3'
+gem 'rails-html-sanitizer', '~> 1.4.4'
 
 gem 'sprockets', '~> 3.7.2'
 
