@@ -24,7 +24,7 @@ namespace :index do
 
     excel_filename = Rails.root.join("lib","assets","fleming-feb21_2023.xlsx").to_s
     xlsx = Roo::Excelx.new(excel_filename)
-
+#    xlsx = xlsx.sheet("questionable") #for sheet
     h = Hash.new
     xlsx.each_row_streaming(pad_cells: true) do |row|
       scan = filter_cells(row[0])
@@ -36,6 +36,7 @@ namespace :index do
       a.push(scan)
       h[object] = a
     end
+#    h.delete_if { |k, v| k.empty? } #don't process empty k/v
     puts h.inspect
     puts h.size
     puts "-----"
@@ -54,8 +55,7 @@ namespace :index do
       puts "-----"
       puts "scan:#{scan}"
       puts "object:#{object}"
-
-
+#      next if scan == "" #don't process empty k/v
 
       resp = target_solr.get 'select', :params => {:fq => "id:\"#{object}\"",:fl => '*'}
 
