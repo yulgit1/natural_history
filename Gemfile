@@ -76,7 +76,7 @@ gem 'rails-html-sanitizer', '~> 1.4.4'
 
 gem 'sprockets', '~> 3.7.2'
 
-gem 'mysql2', '0.4.10'
+gem 'mysql2', '0.5.5'
 
 gem 'roo'
 

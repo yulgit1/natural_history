@@ -89,25 +89,25 @@ class CatalogController < ApplicationController
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
     config.add_facet_field 'object_type_s', label: 'Type', :collapse => false
-    config.add_facet_field 'subject_topic_facet', label: 'Subject (Scans)', :limit => 100
-    config.add_facet_field 'csn_sm', label: 'Current Scientific Name (Scans)', :limit => 100
-    config.add_facet_field 'cvn_sm', label: 'Current Vernacular Name (Scans)', :limit => 100
-    config.add_facet_field 'hsn_sm', label: 'Historic Scientific Name (Scans)', :limit => 100
-    config.add_facet_field 'hvn_sm', label: 'Historic Vernacular Name (Scans)', :limit => 100
-    config.add_facet_field 'author_display_facet', label: 'Author (Scans)', :limit => 100
-    config.add_facet_field 'gnrd_sm', label: 'Scientific Name (Objects & Scans)', :limit => 50
-    config.add_facet_field 'location_s', label: 'Location (Objects & Scans)', :limit => 100, helper_method: 'remove_ycba'
-    config.add_facet_field 'has_scan_s', label: 'Scan Available (Objects)'
-    config.add_facet_field 'subject_s', label: 'Notebook Header (Objects)', :limit => 100
+    config.add_facet_field 'subject_topic_facet', label: 'Subject (Images)', :limit => 100
+    config.add_facet_field 'csn_sm', label: 'Current Scientific Name (Images)', :limit => 100
+    config.add_facet_field 'cvn_sm', label: 'Current Vernacular Name (Images)', :limit => 100
+    config.add_facet_field 'hsn_sm', label: 'Historic Scientific Name (Images)', :limit => 100
+    config.add_facet_field 'hvn_sm', label: 'Historic Vernacular Name (Images)', :limit => 100
+    config.add_facet_field 'author_display_facet', label: 'Author (Images)', :limit => 100
+    config.add_facet_field 'gnrd_sm', label: 'Scientific Name (Texts & Images)', :limit => 50
+    config.add_facet_field 'location_s', label: 'Location (Texts & Images)', :limit => 100, helper_method: 'remove_ycba'
+    config.add_facet_field 'has_scan_s', label: 'Scan Available (Texts)'
+    config.add_facet_field 'subject_s', label: 'Notebook Header (Texts)', :limit => 100
     #config.add_facet_field 'scan_s', label: 'Scan Facet', :limit => 100
-    config.add_facet_field 'book_s', label: 'Notebook (Objects)', sort: 'index'
-    config.add_facet_field 'author_s', label: 'Notetaker (Objects)'
+    config.add_facet_field 'book_s', label: 'Notebook (Texts)', sort: 'index'
+    config.add_facet_field 'author_s', label: 'Notetaker (Texts)'
 
 
-    config.add_facet_field 'scan_author_sm', label: 'Author (Objects)'
-    config.add_facet_field 'author_display', label: 'Author (Scans)'
-    config.add_facet_field 'scan_part_of_s', label: 'Container'
-    config.add_facet_field 'scan_location_s', label: 'Category'
+    config.add_facet_field 'scan_author_sm', label: 'Author (Texts)', :limit => 100
+    config.add_facet_field 'author_display', label: 'Author (Images)' #none?
+    config.add_facet_field 'scan_part_of_s', label: 'Container' #none?
+    config.add_facet_field 'scan_location_s', label: 'Category' #none?
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
