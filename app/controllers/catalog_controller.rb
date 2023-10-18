@@ -8,13 +8,13 @@ class CatalogController < ApplicationController
   #, if: :display_scan_metadata?
 
   def is_scan?(field_config,doc)
-    return true if doc[:format] == "scan"
-    return false if doc[:format] == "object"
+    return true if doc[:format] == "images"
+    return false if doc[:format] == "texts"
   end
 
   def is_object?(field_config,doc)
-    return true if doc[:format] == "object"
-    return false if doc[:format] == "scan"
+    return true if doc[:format] == "images"
+    return false if doc[:format] == "texts"
   end
 
 
@@ -104,8 +104,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'author_s', label: 'Notetaker (Texts)'
 
 
-    config.add_facet_field 'scan_author_sm', label: 'Author (Texts)', :limit => 100
-    config.add_facet_field 'author_display', label: 'Author (Images)' #none?
+    config.add_facet_field 'scan_author_sm', label: 'Artist (Texts)', :limit => 100
+    config.add_facet_field 'author_display', label: 'Artist (Images)' #none?
     config.add_facet_field 'scan_part_of_s', label: 'Container' #none?
     config.add_facet_field 'scan_location_s', label: 'Category' #none?
 
