@@ -96,7 +96,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'hvn_sm', label: 'Historic Vernacular Name (Images)', :limit => 100
     config.add_facet_field 'author_display_facet', label: 'Author (Images)', :limit => 100
     config.add_facet_field 'gnrd_sm', label: 'Scientific Name (Texts & Images)', :limit => 50
-    config.add_facet_field 'location_s', label: 'Location (Texts & Images)', :limit => 100, helper_method: 'remove_ycba'
+    config.add_facet_field 'locations_sm', label: 'Location (Texts & Images)', :limit => 100, helper_method: 'remove_ycba'
     config.add_facet_field 'has_scan_s', label: 'Scan Available (Texts)'
     config.add_facet_field 'subject_s', label: 'Notebook Header (Texts)', :limit => 100
     #config.add_facet_field 'scan_s', label: 'Scan Facet', :limit => 100
@@ -120,7 +120,7 @@ class CatalogController < ApplicationController
     #config.add_index_field 'title_display', label: 'Title'
     config.add_index_field 'subject_topic_facet', label: 'Subject'
     config.add_index_field 'gnrd_sm', label: 'Scientific Name'
-    config.add_index_field 'location_s', label: 'Location'
+    config.add_index_field 'locations_sm', label: 'Location'
     config.add_index_field 'author_display', label: 'Author'
     config.add_index_field 'subject_s', label: 'Notebook Header'
 
@@ -132,7 +132,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'id', label: 'ID'
     config.add_show_field 'title_display', label: 'Title'
     config.add_show_field 'label_s', label: 'Label'
-    config.add_show_field 'location_s', label: 'Location', link_to_search: true
+    config.add_show_field 'locations_sm', label: 'Location', link_to_search: true
     config.add_show_field 'author_display', label: 'Author', link_to_search: true
     config.add_show_field 'scan_sm', label: 'Related Scan', helper_method: 'render_scan_as_link'
     #config.add_show_field 'gnrd_sm', link_to_search: true, label: 'Scientific Name (GNRD)'
