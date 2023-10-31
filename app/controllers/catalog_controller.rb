@@ -104,8 +104,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'author_s', label: 'Notetaker (Texts)'
 
 
-    config.add_facet_field 'scan_author_sm', label: 'Artist (Texts)', :limit => 100
-    config.add_facet_field 'author_display', label: 'Artist (Images)' #none?
+    config.add_facet_field 'scan_author_sm', label: 'Artist (Texts & Images)', :limit => 100
+    #config.add_facet_field 'author_display', label: 'Artist (Images)' #reinxed into scan_author_sm (even though not scan)
     config.add_facet_field 'scan_part_of_s', label: 'Container' #none?
     config.add_facet_field 'scan_location_s', label: 'Category' #none?
 
@@ -121,7 +121,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'subject_topic_facet', label: 'Subject'
     config.add_index_field 'gnrd_sm', label: 'Scientific Name'
     config.add_index_field 'locations_sm', label: 'Location'
-    config.add_index_field 'author_display', label: 'Author'
+    config.add_index_field 'author_display', label: 'Artist'
     config.add_index_field 'subject_s', label: 'Notebook Header'
 
     #config.add_index_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
@@ -133,7 +133,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'title_display', label: 'Title'
     config.add_show_field 'label_s', label: 'Label'
     config.add_show_field 'locations_sm', label: 'Location', link_to_search: true
-    config.add_show_field 'author_display', label: 'Author', link_to_search: true
+    config.add_show_field 'author_display', label: 'Artist', link_to_search: true
     config.add_show_field 'scan_sm', label: 'Related Scan', helper_method: 'render_scan_as_link'
     #config.add_show_field 'gnrd_sm', link_to_search: true, label: 'Scientific Name (GNRD)'
     config.add_show_field 'gnrd_sm', label: 'Scientific Name (GNRD)', helper_method: 'list_gnrd_as_link'
