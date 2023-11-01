@@ -133,7 +133,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'title_display', label: 'Title'
     config.add_show_field 'label_s', label: 'Label'
     config.add_show_field 'locations_sm', label: 'Location', link_to_search: true
-    config.add_show_field 'author_display', label: 'Artist', link_to_search: true
+    config.add_show_field 'scan_author_sm', label: 'Artist', link_to_search: true
     config.add_show_field 'scan_sm', label: 'Related Scan', helper_method: 'render_scan_as_link'
     #config.add_show_field 'gnrd_sm', link_to_search: true, label: 'Scientific Name (GNRD)'
     config.add_show_field 'gnrd_sm', label: 'Scientific Name (GNRD)', helper_method: 'list_gnrd_as_link'
