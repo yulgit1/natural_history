@@ -121,7 +121,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'subject_topic_facet', label: 'Subject'
     config.add_index_field 'gnrd_sm', label: 'Scientific Name'
     config.add_index_field 'locations_sm', label: 'Location'
-    config.add_index_field 'author_display', label: 'Artist'
+    config.add_index_field 'scan_author_sm', label: 'Artist'
     config.add_index_field 'subject_s', label: 'Notebook Header'
 
     #config.add_index_field 'entries_t', label: 'Description', helper_method: 'render_markdown'
