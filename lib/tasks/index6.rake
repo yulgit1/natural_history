@@ -10,7 +10,7 @@ include REXML
 #note - will require clean up
 
 namespace :index do
-  desc "Copy index original index and add facets"
+  desc "Add locations to text"
   task add_locations_to_text: :environment do
 
     puts "start: #{Time.now}"
