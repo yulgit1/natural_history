@@ -16,7 +16,7 @@ namespace :index do
     puts "start: #{Time.now}"
     SOLR_CONFIG = Rails.application.config_for(:blacklight) #good to know
     #ssh -i "ycba-test.pem" -L 8983:localhost:8983 10.5.96.214 -l ec2-user
-    #before running this script copy existing index:
+    #IMPORTANT!! before running this script copy existing index open which the remaining will be updated:
       #cd /opt/blacklight-jetty/solr/bartram7
       #cp -rp data /opt/blacklight-jetty/solr/bartram8
     orig_solr_url = "http://localhost:8983/solr/bartram7"
