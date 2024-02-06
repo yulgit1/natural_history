@@ -1,0 +1,58 @@
+Upgrade
+From 10.5.96.214
+amy_meyers_knowing_nature
+	/etc/os-release
+	t3-micro
+	10.5.97.56
+	install ruby
+		https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/ruby-development-environment.html
+			sudo dnf swap gnupg2-minimal gnupg2-full
+			sudo yum install dirmngr
+			gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+			\curl -sSL https://get.rvm.io | bash -s stable
+			source /home/ec2-user/.rvm/scripts/rvm
+			rvm get head
+			rvm list known (check)
+			rvm install 2.7.8
+	install java 8
+		https://docs.aws.amazon.com/neptune/latest/userguide/iam-auth-connect-prerq.html
+			skip maven
+			sudo yum install java-1.8.0-devel
+			sudo /usr/sbin/alternatives --config java
+			sudo /usr/sbin/alternatives --config javac
+	cut and paste ycba-test.pem
+	chmod 400 "ycba-test.pem"
+	sudo scp -r -i "ycba-test.pem" ec2-user@10.5.96.214:/opt/blacklight-jetty /opt/blacklight-jetty
+	sudo scp -r -i "ycba-test.pem" ec2-user@10.5.96.214:/opt/natural_history /opt/natural_history
+	sudo scp -r -i "ycba-test.pem" ec2-user@10.5.96.214:/opt/mysql_keys /opt/mysql_keys
+	sudo chown -R ec2-user:ec2-user blacklight-jetty (for above 3)
+	remove logs from above 2
+	removed bkup Gemfile.lock
+	install git
+		https://cloudkatha.com/how-to-install-git-on-amazon-linux-2023-instance/
+			sudo dnf update
+			sudo dnf install git -y
+	check jetty (tunneling)
+		ssh -i "ycba-test.pem" -L 8983:localhost:8983 10.5.97.56 -l ec2-user
+	fix ruby
+		delete .ruby-gemset
+		change to ruby-2.7.8 in .ruby-version
+		rvm pkg install openssl
+		rvm reinstall ruby-2.7.8 --with-openssl-dir=$rvm_path/usr
+		gem install bundler:1.16.6
+		bundle install
+			sassc 2.3.0 hang
+				gem install sassc:2.1.0
+		mysql2 gem error:
+			sudo yum install -y mariadb-connector-c-devel
+			gem install mysql2 -v '0.5.5' --source 'https://rubygems.org/'
+		bundle update sassc (to finish gem install)
+		rails tmp:clear (remove unneeded huge cache)
+		issue with Listening on http://0.0.0.0:3000
+			netstat -anp
+		install crontab 
+			sudo yum install cronie -y
+			sudo systemctl enable crond.service
+			sudo systemctl start crond.service
+			(copy crontab -l from old server, and update scripts path)
+	mysql keys (copied over from old server, not sure if needed)
