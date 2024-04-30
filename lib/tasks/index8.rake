@@ -31,7 +31,7 @@ namespace :index do
     xlsx.each_row_streaming(pad_cells: true) do |row|
       rowcount += 1
       #next if rowcount == 1
-      break if rowcount > 1
+      #break if rowcount > 1
       #puts row.inspect
 
       timestamp = Time.now
@@ -105,6 +105,7 @@ namespace :index do
     end
 
     puts "end: #{Time.now}"
+    puts "rowcount: #{rowcount}"
 
   end
 
