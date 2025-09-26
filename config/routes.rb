@@ -35,5 +35,7 @@ Rails.application.routes.draw do
   get 'edit/solr_lookup' => 'print_scan#solr_lookup'
   get 'print/instructions' => 'print_scan#instructions'
 
+  get 'access_denied', to: 'errors#access_denied'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -1,12 +1,29 @@
+require 'casclient'
+require 'casclient/frameworks/rails/filter'
 class ApplicationController < ActionController::Base
+  ALLOWED_USERS = ["ermadmix", "kab86","am539"]
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
   layout 'blacklight'
 
   protect_from_forgery with: :exception
 
-  before_action :block_foreign_hosts, :authenticate_user!
+  before_action :authenticate_user, unless: :skip_cas
+  #before_action :block_foreign_hosts, :authenticate_user!
+  before_action :block_foreign_hosts
+  def skip_cas
+    # Define conditions for skipping CAS authentication, if any
+    false
+  end
 
+  def authenticate_user
+    CASClient::Frameworks::Rails::Filter.filter(self)
+    deny_access unless ALLOWED_USERS.include?(session[:cas_user])
+  end
+
+  def deny_access
+    render plain: "Your netid #{session[:cas_user]} is not authorized to access this page." and return
+  end
   def block_foreign_hosts
     puts "Remote_ip:#{request.remote_ip}"
     lines = Array.new

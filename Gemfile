@@ -93,3 +93,6 @@ gem 'activejob', '>= 5.1.6.1'
 gem 'rack', '>= 2.2.3'
 
 gem 'roo'
+
+gem 'rubycas-client'
+
