@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user, unless: :skip_cas
+  before_action :failed_auth_redirect
   #before_action :block_foreign_hosts, :authenticate_user!
   before_action :block_foreign_hosts
   def skip_cas
@@ -16,9 +17,11 @@ class ApplicationController < ActionController::Base
     false
   end
 
+  def failed_auth_redirect
+    deny_access unless ALLOWED_USERS.include?(session[:cas_user])
+  end
   def authenticate_user
     CASClient::Frameworks::Rails::Filter.filter(self)
-    deny_access unless ALLOWED_USERS.include?(session[:cas_user])
   end
 
   def deny_access
