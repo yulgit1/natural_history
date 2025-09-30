@@ -1,7 +1,7 @@
 require 'casclient'
 require 'casclient/frameworks/rails/filter'
 class ApplicationController < ActionController::Base
-  ALLOWED_USERS = ["ermadmix", "kab86","am539"]
+  ALLOWED_USERS = ["ermadmix", "kab86","am539","bacref3"]
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
   layout 'blacklight'
@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
 
   def deny_access
     render plain: "Your netid #{session[:cas_user]} is not authorized to access this page." and return
+  end
+
+  def logout
+    # Optionally, perform any local cleanup before CAS logout
+    # For example, clear application-specific session data
+    # session[:user_data] = nil
+    CASClient::Frameworks::Rails::Filter.logout(self)
   end
   def block_foreign_hosts
     puts "Remote_ip:#{request.remote_ip}"
