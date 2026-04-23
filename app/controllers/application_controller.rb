@@ -8,10 +8,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :authenticate_user, unless: :skip_cas
-  before_action :failed_auth_redirect
-  #before_action :block_foreign_hosts, :authenticate_user!
-  before_action :block_foreign_hosts
+  #before_action :authenticate_user, unless: :skip_cas
+  #before_action :failed_auth_redirect
+  ##before_action :block_foreign_hosts, :authenticate_user!
+  #before_action :block_foreign_hosts
   def skip_cas
     # Define conditions for skipping CAS authentication, if any
     false

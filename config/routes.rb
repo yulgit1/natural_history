@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   mount Blacklight::Engine => '/'
-  Blacklight::Marc.add_routes(self)
+  #Blacklight::Marc.add_routes(self)
   root to: "catalog#index"
     concern :searchable, Blacklight::Routes::Searchable.new
 
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  mount Riiif::Engine => '/image-service', as: 'riiif'
+  #mount Riiif::Engine => '/image-service', as: 'riiif'
 
   #to refactor: MVC name not exactly corrent, rather than 'print_scan' do something more semantic
   get 'print/scan/:scan' => 'print_scan#show'

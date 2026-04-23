@@ -7,26 +7,25 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-#gem 'rails', '~> 5.2.2'
-gem 'rails', '~> 5.2.6' 
+gem 'rails' 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '>= 3.12.2'
+gem 'puma'
 gem 'puma-daemon', require: false
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
+gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -39,62 +38,64 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
   gem 'selenium-webdriver'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console'
+  gem 'listen'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring-watcher-listen'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'blacklight', '6.23.0'
+gem 'blacklight'
 group :development, :test do
-  gem 'solr_wrapper', '>= 0.3'
+  gem 'solr_wrapper'
 end
 
-gem 'rsolr', '>= 1.0'
+gem 'rsolr'
 gem 'jquery-rails'
-gem 'devise', '>= 4.7.1'
-gem 'devise-guests', '~> 0.6'
-gem 'blacklight-marc', '~> 6.1'
+gem 'devise'
+gem 'devise-guests'
+gem 'blacklight-marc'
 
 gem 'redcarpet'
 
 gem 'riiif'
 
-gem 'nokogiri', '>= 1.10.8'
+gem 'nokogiri'
 
-gem 'loofah', '>= 2.3.1'
-gem 'rails-html-sanitizer', '~> 1.4.4'
+gem 'loofah'
+gem 'rails-html-sanitizer'
 
-gem 'sprockets', '~> 3.7.2'
+gem 'sprockets'
 
-gem 'mysql2', '0.5.5'
-
-gem 'roo'
-
-gem 'rubyzip', '>= 1.2.2'
-
-gem 'ffi', '>= 1.9.24'
-
-gem 'actionview', '>= 5.1.6.2'
-
-gem 'bootstrap-sass', '>= 3.4.1'
-
-gem 'activejob', '>= 5.1.6.1'
-
-gem 'rack', '>= 2.2.3'
+gem 'mysql2'
 
 gem 'roo'
 
-gem 'sassc', '~> 2.1.0'
+gem 'rubyzip'
+
+gem 'ffi'
+
+gem 'actionview'
+
+gem 'bootstrap-sass'
+
+gem 'activejob'
+
+gem 'rack'
+
+gem 'roo'
+
+gem 'sassc'
 
 gem 'rubycas-client'
+
+gem 'view_component'
