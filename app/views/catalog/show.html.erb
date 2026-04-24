@@ -5,10 +5,11 @@
     </div>
 <% end %>
 
-<%= render_document_main_content_partial %>
+<% presenter = document_presenter(@document) %>
+<%= render 'show_main_content', presenter: presenter %>
 
 <% content_for(:sidebar) do %>
-    <%= render_document_sidebar_partial %>
+    <%= render presenter.view_config.sidebar_component.new(presenter: presenter) %>
 <% end %>
 
 <%= render partial: 'viewer' %>

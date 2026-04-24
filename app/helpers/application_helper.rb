@@ -18,7 +18,7 @@ module ApplicationHelper
   def list_gnrd_as_link options={}
     values = []
     options[:value].each {  |item|
-      values.append("<a href=\"/?f[gnrd_sm][]=#{URI::encode(item)}\">#{item}</a>")
+      values.append("<a href=\"/?f[gnrd_sm][]=#{CGI.escape(item)}\">#{item}</a>")
     }
     values.join('<br/>').html_safe
   end
@@ -26,7 +26,7 @@ module ApplicationHelper
   def render_csn_as_link options={}
     values = []
     options[:value].each {  |item|
-      values.append("<a href=\"/?f[csn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+      values.append("<a href=\"/?f[csn_sm][]=#{CGI.escape(item)}\">#{item}</a>")
     }
     values.join('<br/>').html_safe
   end
@@ -34,7 +34,7 @@ module ApplicationHelper
   def render_cvn_as_link options={}
     values = []
     options[:value].each {  |item|
-      values.append("<a href=\"/?f[cvn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+      values.append("<a href=\"/?f[cvn_sm][]=#{CGI.escape(item)}\">#{item}</a>")
     }
     values.join('<br/>').html_safe
   end
@@ -42,7 +42,7 @@ module ApplicationHelper
   def render_hsn_as_link options={}
     values = []
     options[:value].each {  |item|
-      values.append("<a href=\"/?f[hsn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+      values.append("<a href=\"/?f[hsn_sm][]=#{CGI.escape(item)}\">#{item}</a>")
     }
     values.join('<br/>').html_safe
   end
@@ -50,7 +50,7 @@ module ApplicationHelper
   def render_hvn_as_link options={}
     values = []
     options[:value].each {  |item|
-      values.append("<a href=\"/?f[hvn_sm][]=#{URI::encode(item)}\">#{item}</a>")
+      values.append("<a href=\"/?f[hvn_sm][]=#{CGI.escape(item)}\">#{item}</a>")
     }
     values.join('<br/>').html_safe
   end
@@ -310,7 +310,7 @@ def render_entries options={}
         field_sym = field.to_sym
         docClone=doc.clone
         if content.kind_of?(Array)
-          content = content.map! { |f| URI::decode(f) }
+          content = content.map! { |f| CGI.unescape(f) }
         end
         docClone["#{field_sym}"] = content
         docClone['timestamp'] = Time.now
