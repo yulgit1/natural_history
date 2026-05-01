@@ -269,13 +269,13 @@ def render_entries options={}
     sorted.size
   end
 
-  def get_thumbnail(s)
-    #s = "http://localhost:3000/image-service/image-0001-00/full/150,150/0/default.jpg"
-    #s2  = s.split("/")[4] + ".jpg" #from iiif_thumbnail_s deprecated 
-    s2 = "image#{s[4,5]}-00.jpg"
-    s3 = "http://#{request.host_with_port}/assets/scans/#{s2}"
-
-    return s3
+  def get_thumbnail(document, options = {})
+    imageurl = "http://localhost:3000/assets/scans/image#{document[:id][4,5]}-00.jpg"
+    return image_tag(imageurl,
+                     alt:     document[:title_display].presence || "Thumbnail",
+                     class:   "document-thumbnail img-fluid",
+                     onerror: "this.style.display='none'",
+                     loading: "lazy")
   end
 
   def getfields(id,field)

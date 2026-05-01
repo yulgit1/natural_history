@@ -56,6 +56,7 @@ class CatalogController < ApplicationController
     #https://github.com/projectblacklight/blacklight/wiki/Configuration---Results-View
     config.index.title_field = 'label_s'
     config.index.display_type_field = 'format'
+    config.index.thumbnail_method = :get_thumbnail
     #config.index.thumbnail_field = 'thumbnail_path_ss'
 
     # solr field configuration for document/show views
