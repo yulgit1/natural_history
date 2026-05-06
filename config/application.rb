@@ -17,6 +17,7 @@ module NaturalHistory
     config.action_dispatch.default_headers = {
     'Access-Control-Allow-Origin' => 'http://universalviewer.io',
     'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
-  }
+    }
+    config.hosts << "knowingnature.britishart.yale.edu"
   end
 end
