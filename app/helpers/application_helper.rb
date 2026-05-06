@@ -270,7 +270,9 @@ def render_entries options={}
   end
 
   def get_thumbnail(document, options = {})
-    imageurl = "http://localhost:3000/assets/scans/image#{document[:id][4,5]}-00.jpg"
+    host = request.protocol + request.host_with_port
+    imageurl = "#{host}/assets/scans/image#{document[:id][4,5]}-00.jpg"
+    #puts imageurl
     return image_tag(imageurl,
                      alt:     document[:title_display].presence || "Thumbnail",
                      class:   "document-thumbnail img-fluid",
