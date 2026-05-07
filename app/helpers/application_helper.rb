@@ -153,13 +153,16 @@ def render_entries options={}
     dir = Rails.root.join("app","assets","images","scans")
     Dir.chdir(dir)
     sorted = Dir.glob("#{id}*.jpg").sort
+    markup = +""
     sorted.each do |f|
-      #image-0001-00.jpg
-      #markup += "<a class=\"fancybox\" rel=\"group\" href=\"/assets/scans/#{f}\" title=\"#{f}\">#{f}</a></br>"
-      #a class="sb" href="/assets/scans/image-0001-00.jpg" title="Hey here's a caption">Image One</a>
-      markup += "<a class=\"fancybox\" rel=\"group\" href=\"/assets/scans/#{f}\"><img src=\"/assets/scans/#{f}\" height=\"150\" width=\"150\"/ style=\"border:1px solid black\"></a>&nbsp;&nbsp; "
-      #puts f
+      markup << link_to(
+      image_tag("scans/#{f}", height: 150, width: 150, style: "border: 1px solid black"),
+      asset_path("scans/#{f}"),
+      class: "fancybox",
+      rel: "group")
+      markup << "&nbsp;&nbsp;"
     end
+    #puts f
     markup += "</br>"
     markup.html_safe
   end
@@ -171,11 +174,15 @@ def render_entries options={}
     dir = Rails.root.join("app","assets","images","scans")
     Dir.chdir(dir)
     sorted = Dir.glob("#{scanid}*.jpg").sort
+    markup = +""
     sorted.each do |f|
-      markup += "<div style=\"page-break-after: always\">"
-      markup += "<img class=\"contain\" src=\"/assets/scans/#{f}\" width=\"700\" height=\"840\" style=\"object-fit: contain;\">"
-      markup += "</div>"
-      #puts f
+      markup << content_tag(:div, style: "page-break-after: always") do
+        image_tag("scans/#{f}",
+                 class: "contain",
+                 width: 700,
+                 height: 840,
+                 style: "object-fit: contain;")
+       end
     end
     #markup += "</br>"
     markup.html_safe
@@ -271,9 +278,10 @@ def render_entries options={}
 
   def get_thumbnail(document, options = {})
     host = request.protocol + request.host_with_port
-    imageurl = "#{host}/assets/scans/image#{document[:id][4,5]}-00.jpg"
+    #imageurl = "#{host}/assets/scans/image#{document[:id][4,5]}-00.jpg"
+    imagepath = "scans/image#{document[:id][4,5]}-00.jpg"
     #puts imageurl
-    return image_tag(imageurl,
+    return image_tag(imagepath,
                      alt:     document[:title_display].presence || "Thumbnail",
                      class:   "document-thumbnail img-fluid",
                      onerror: "this.style.display='none'",
