@@ -19,5 +19,6 @@ module NaturalHistory
     'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
     }
     config.hosts << "knowingnature.britishart.yale.edu"
+    config.hosts << "10.5.97.197"
   end
 end

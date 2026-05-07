@@ -16,7 +16,8 @@ gem 'puma-daemon', require: false
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier'
+#gem 'uglifier'
+gem 'terser'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # therubyracer removed — using system Node.js as JS runtime
 
@@ -91,8 +92,6 @@ gem 'bootstrap', '~> 5.3'
 gem 'activejob'
 
 gem 'rack'
-
-gem 'roo'
 
 gem 'sassc'
 

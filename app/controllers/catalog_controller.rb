@@ -101,7 +101,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'has_scan_s', label: 'Scan Available (Texts)', sort: 'alpha'
     config.add_facet_field 'subject_s', label: 'Notebook Header (Texts)', :limit => 100, sort: 'alpha'
     #config.add_facet_field 'scan_s', label: 'Scan Facet', :limit => 100
-    config.add_facet_field 'book_s', label: 'Notebook (Texts)', sort: 'index', sort: 'alpha'
+    config.add_facet_field 'book_s', label: 'Notebook (Texts)', sort: 'alpha' #, sort: 'index'
     config.add_facet_field 'author_s', label: 'Notetaker (Texts)', sort: 'alpha'
 
 
