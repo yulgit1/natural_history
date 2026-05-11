@@ -1,5 +1,23 @@
 module ApplicationHelper
 
+  def safe_image_tag(logical_path, **options)
+    if asset_present?(logical_path)
+      image_tag(logical_path, **options)
+    else
+      #image_tag("placeholders/missing.jpg", **options) # or return nil
+      return nil
+    end
+  end
+
+  def asset_present?(logical_path)
+    if Rails.application.assets # dev/test (Sprockets environment)
+      Rails.application.assets.find_asset(logical_path).present?
+    else
+      # production (precompiled manifest)
+      Rails.application.assets_manifest.assets[logical_path].present?
+    end
+  end
+
   def remove_ycba value
     if value == "Yale Center for British Art"
       value = "Yale Center for British Art (objects)"
@@ -156,7 +174,7 @@ def render_entries options={}
     markup = +""
     sorted.each do |f|
       markup << link_to(
-      image_tag("scans/#{f}", height: 150, width: 150, style: "border: 1px solid black"),
+      safe_image_tag("scans/#{f}", height: 150, width: 150, style: "border: 1px solid black"),
       asset_path("scans/#{f}"),
       class: "fancybox",
       rel: "group")
@@ -177,7 +195,7 @@ def render_entries options={}
     markup = +""
     sorted.each do |f|
       markup << content_tag(:div, style: "page-break-after: always") do
-        image_tag("scans/#{f}",
+        safe_image_tag("scans/#{f}",
                  class: "contain",
                  width: 700,
                  height: 840,
@@ -281,7 +299,7 @@ def render_entries options={}
     #imageurl = "#{host}/assets/scans/image#{document[:id][4,5]}-00.jpg"
     imagepath = "scans/image#{document[:id][4,5]}-00.jpg"
     #puts imageurl
-    return image_tag(imagepath,
+    return safe_image_tag(imagepath,
                      alt:     document[:title_display].presence || "Thumbnail",
                      class:   "document-thumbnail img-fluid",
                      onerror: "this.style.display='none'",
