@@ -95,6 +95,8 @@ gem 'rack'
 
 gem 'sassc'
 
-gem 'rubycas-client'
+#gem 'rubycas-client' #ERJ deprecated 5/2026
+gem 'omniauth-cas' 
+gem 'omniauth-rails_csrf_protection'
 
 gem 'view_component'

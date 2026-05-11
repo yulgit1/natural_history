@@ -252,6 +252,14 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
+  #ERJ 5/8/2026 - added omniauth
+  require "omniauth-cas"
+  config.omniauth :cas,
+                  host: 'secure.its.yale.edu',
+                  login_url: '/cas/login',
+                  service_validate_url: '/cas/serviceValidate',
+                  logout_url: '/cas/logout',
+                  disable_ssl_verification: true
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     concerns :searchable
   end
 
-  devise_for :users
+  #devise_for :users
   concern :exportable, Blacklight::Routes::Exportable.new
 
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       delete 'clear'
     end
   end
+
+  devise_for :users,
+  controllers: { sessions: 'users/sessions', omniauth_callbacks: 'users/omniauth_callbacks' }
+  get '/unauth', :to => redirect('/unauth.html'), as: :unauth
 
   #mount Riiif::Engine => '/image-service', as: 'riiif'
 

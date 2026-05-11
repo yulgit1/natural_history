@@ -1,5 +1,3 @@
-require 'casclient'
-require 'casclient/frameworks/rails/filter'
 class ApplicationController < ActionController::Base
   ALLOWED_USERS = ["ermadmix", "kab86","am539","bacref3"]
   # Adds a few additional behaviors into the application controller
@@ -8,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  before_action :authenticate_user!
+  
   #before_action :authenticate_user, unless: :skip_cas
   #before_action :failed_auth_redirect
   ##before_action :block_foreign_hosts, :authenticate_user!
@@ -20,19 +20,14 @@ class ApplicationController < ActionController::Base
   def failed_auth_redirect
     deny_access unless ALLOWED_USERS.include?(session[:cas_user])
   end
-  def authenticate_user
-    CASClient::Frameworks::Rails::Filter.filter(self)
-  end
 
   def deny_access
     render plain: "Your netid #{session[:cas_user]} is not authorized to access this page." and return
   end
 
   def logout
-    # Optionally, perform any local cleanup before CAS logout
-    # For example, clear application-specific session data
-    # session[:user_data] = nil
-    CASClient::Frameworks::Rails::Filter.logout(self)
+    sign_out current_user
+    redirect_to "https://secure.its.yale.edu/cas/logout", allow_other_host: true
   end
   def block_foreign_hosts
     puts "Remote_ip:#{request.remote_ip}"
