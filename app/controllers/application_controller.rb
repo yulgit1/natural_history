@@ -6,17 +6,15 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, unless: :skip_cas
+  skip_before_action :authenticate_user!, only: [:logout]
   
-  #before_action :authenticate_user, unless: :skip_cas
-  #before_action :failed_auth_redirect
-  ##before_action :block_foreign_hosts, :authenticate_user!
-  #before_action :block_foreign_hosts
   def skip_cas
     # Define conditions for skipping CAS authentication, if any
     false
   end
 
+  #deprecated
   def failed_auth_redirect
     deny_access unless ALLOWED_USERS.include?(session[:cas_user])
   end
@@ -25,10 +23,18 @@ class ApplicationController < ActionController::Base
     render plain: "Your netid #{session[:cas_user]} is not authorized to access this page." and return
   end
 
+  def after_sign_in_path_for(resource)
+    flash.delete(:alert)
+    super
+  end
+
   def logout
-    sign_out current_user
+    sign_out :user
+    reset_session
     redirect_to "https://secure.its.yale.edu/cas/logout", allow_other_host: true
   end
+
+  #deprecated
   def block_foreign_hosts
     puts "Remote_ip:#{request.remote_ip}"
     lines = Array.new
@@ -38,6 +44,7 @@ class ApplicationController < ActionController::Base
     #redirect_to "https://britishart.yale.edu/" #unless request.remote_ip.start_with?("130.132")
   end
 
+  #deprecated
   def whitelisted?(ip)
     lines = Array.new
     File.open("#{Rails.root}/config/ip.txt").each { |line| lines << line.gsub("\n","") }

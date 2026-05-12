@@ -20,6 +20,8 @@ class CatalogController < ApplicationController
 
 
   configure_blacklight do |config|
+    config.advanced_search.enabled = false
+
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #

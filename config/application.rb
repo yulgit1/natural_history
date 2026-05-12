@@ -19,15 +19,6 @@ module NaturalHistory
     'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")
     }
     config.hosts << "knowingnature.britishart.yale.edu"
-    config.hosts << "10.5.97.197"
-
-    config.active_record.yaml_column_permitted_classes = [
-      Symbol,
-      Date,
-      Time,
-      DateTime,
-      ActiveSupport::TimeWithZone,
-      ActiveSupport::TimeZone
-    ]
+    config.hosts << "10.5.97.197" #for reverse proxy
   end
 end
