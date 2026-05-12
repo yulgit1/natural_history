@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  ALLOWED_USERS = ["ermadmix", "kab86","am539","bacref3"]
+  ALLOWED_USERS = ["ermadmix","kab86","am539","bacref3"]
   # Adds a few additional behaviors into the application controller
   include Blacklight::Controller
   layout 'blacklight'
@@ -7,11 +7,21 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!, unless: :skip_cas
+  before_action :verify_allowed_user, unless: :skip_cas
   skip_before_action :authenticate_user!, only: [:logout]
-  
+  skip_before_action :verify_allowed_user, only: [:logout]
+
   def skip_cas
-    # Define conditions for skipping CAS authentication, if any
     false
+  end
+
+  def verify_allowed_user
+    return unless current_user
+    netid = current_user.email.split('@').first
+    return if ALLOWED_USERS.include?(netid)
+    sign_out :user
+    reset_session
+    redirect_to "https://secure.its.yale.edu/cas/logout", allow_other_host: true
   end
 
   #deprecated
