@@ -1,0 +1,29 @@
+[Unit]
+  Description=Puma HTTP Server (natural_history)                                                                                                                                      
+  After=network.target
+
+  [Service]
+  Type=forking
+  User=ec2-user
+  Group=ec2-user
+  WorkingDirectory=/opt/natural_history
+
+  Environment=RAILS_ENV=production                                                                                                                                                    
+  Environment=HOME=/home/ec2-user
+
+  PIDFile=/home/ec2-user/puma/puma.pid
+
+  ExecStart=/opt/natural_history/scripts/puma_start.sh
+  ExecStop=/bin/kill -SIGTERM $MAINPID
+  ExecReload=/bin/kill -SIGUSR2 $MAINPID
+  
+  TimeoutStartSec=60
+  TimeoutStopSec=30
+  Restart=on-failure
+  RestartSec=5
+
+  StandardOutput=append:/home/ec2-user/puma/stdout                                                                                                                                    
+  StandardError=append:/home/ec2-user/puma/stderr
+
+  [Install]
+  WantedBy=multi-user.target
